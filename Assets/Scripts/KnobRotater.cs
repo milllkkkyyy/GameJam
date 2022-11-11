@@ -70,14 +70,14 @@ public class KnobRotater : MonoBehaviour
     private void RotateRandomInensity()
     {
         (int degrees, int intensity) values = RotateKnob();
-        television.GetKnobManager().SetIntensity(values.intensity);
+        //television.GetKnobManager().SetIntensity(values.intensity);
         KnobIntensity.eulerAngles = Vector3.forward * values.degrees;
     }
 
     private void RotateRandomDifficulty()
     {
         (int degrees, int difficulty) values = RotateKnob();
-        television.GetKnobManager().SetDifficulty(values.difficulty);
+        //television.GetKnobManager().SetDifficulty(values.difficulty);
         KnobDifficulty.eulerAngles = Vector3.forward * values.degrees;
     }
 }
