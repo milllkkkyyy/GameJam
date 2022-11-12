@@ -33,24 +33,10 @@ public class TelevisionManager: MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (input.Hotdog.Button1.WasPressedThisFrame())
-            LoadNextLevel();
-    }
-
     // Loading levels
-    private void LoadNextLevel()
+    private void ChangeScene(string scene_name)
     {
-        if (SceneManager.GetActiveScene().name == "Malik Scene B")
-        {
-            StartCoroutine(LoadLevel("Malik Scene A"));
-        }
-        else
-        {
-            StartCoroutine(LoadLevel("Malik Scene B"));
-
-        }
+        StartCoroutine(LoadLevel(scene_name));
     }
 
     IEnumerator LoadLevel(string scene_name)
