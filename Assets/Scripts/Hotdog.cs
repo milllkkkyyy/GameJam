@@ -1,35 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Hotdog : MonoBehaviour
 {
     private int maxBites;
     private int currentBites = 0;
-    private KeyCode input = KeyCode.W;
-   //need to assign the hot dog to either opponent's bowl or player's bowl
+    Minigames input; // The input schema we are using
+    InputAction action; // Instead of checking KeyCode check InputAction
+    
+    //need to assign the hot dog to either opponent's bowl or player's bowl
     //private Bowl = PlayerBowlOfHotDogs;
-    private void Awake()
+    void Awake()
     {
+        input = new Minigames();
         //when the game begins, set which button you need to mash for this hot dog as well
         //as how many bites (maxbites) required to eat the whole dog. this is determined by difficulty (gamevolume)
         this.maxBites = 5;
         //this.maxBites= 5*game.Difficulty
 
-        InitializeInput();
-
-    }
-    //set the input button of this hotdog
-    private void InitializeInput()
-    {
-        //get the difficulty setting, and pick from a list of possible buttons according to the difficulty 
-    }
-    public KeyCode GetButton()
-    {
-        return this.input;
     }
 
-    public void Bite()
+    void OnEnable() => input.Enable();
+
+    void OnDisable() => input.Disable();
+
+    void Start()
+    {
+        // set which button the hotdog uses.
+        action = input.Hotdog.Button1;
+    }
+
+    void Update()
+    {
+        if (action.WasPressedThisFrame())
+        {
+            Debug.Log("Bite.");
+            Bite();
+        }
+    }
+
+    void Bite()
     {
         currentBites += 1;
     }
