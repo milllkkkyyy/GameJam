@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Malik Scene B.unity
     guid: d18f8d93a7f1b4c8cb485ee1f77573f5
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 8d5265cc64b71ab479fd5c1be8b724ab
+  - enabled: 1
+    path: Assets/Scenes/Settings.unity
+    guid: 12e4ff7ff58488f45a1726a66a53cbc0
   m_configObjects: {}

@@ -301,6 +301,7 @@ GameObject:
   - component: {fileID: 977285555311397641}
   - component: {fileID: 977285555311397642}
   - component: {fileID: 977285555311397643}
+  - component: {fileID: 1222868557}
   m_Layer: 0
   m_Name: ChangeChannel
   m_TagString: Untagged
@@ -339,7 +340,7 @@ Canvas:
   m_GameObject: {fileID: 977285555311397637}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -347,9 +348,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &977285555311397641
 MonoBehaviour:
@@ -390,7 +391,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
 --- !u!95 &977285555311397643
 Animator:
   serializedVersion: 4
@@ -411,6 +412,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!225 &1222868557
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977285555311397637}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &977285555491024153
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,8 +536,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -776, y: -234}
-  m_SizeDelta: {x: -700, y: -236}
+  m_AnchoredPosition: {x: -724.07007, y: -217.76999}
+  m_SizeDelta: {x: -596.14, y: -203.54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &977285555497508550
 CanvasRenderer:

@@ -8,16 +8,18 @@ public class TelevisionManager: MonoBehaviour
 
     private static TelevisionManager instance;
 
+    public Animator transition;
+
     // Currently playable minigames
     string[] minigames = new string[] { "Malik Scene A", "Malik Scene B" };
 
-    public Animator transition;
+    string test = "lol";
 
     Minigames input;
 
-    public float transitionTime = 1f;
+    float transitionTime = 1f;
 
-    private void Start()
+    void Start()
     {
         if (instance != null)
         {
@@ -30,11 +32,22 @@ public class TelevisionManager: MonoBehaviour
 
             input = new Minigames();
             input.Enable();
+            Debug.Log(test);
         }
     }
 
+    public string GetTest()
+    {
+        return test;
+    }
+
+    public void SetTest(string temp)
+    {
+        temp = test;
+    }
+
     // Loading levels
-    private void ChangeScene(string scene_name)
+    public void ChangeScene(string scene_name)
     {
         StartCoroutine(LoadLevel(scene_name));
     }
