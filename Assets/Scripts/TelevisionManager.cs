@@ -13,7 +13,7 @@ public class TelevisionManager: MonoBehaviour
     // Currently playable minigames
     string[] minigames = new string[] { "Malik Scene A", "Malik Scene B" };
 
-    string test = "lol";
+    string last_scene = "";
 
     Minigames input;
 
@@ -32,18 +32,12 @@ public class TelevisionManager: MonoBehaviour
 
             input = new Minigames();
             input.Enable();
-            Debug.Log(test);
         }
     }
 
-    public string GetTest()
+    public string GetLastScene()
     {
-        return test;
-    }
-
-    public void SetTest(string temp)
-    {
-        temp = test;
+        return last_scene;
     }
 
     // Loading levels
@@ -53,13 +47,15 @@ public class TelevisionManager: MonoBehaviour
     }
 
     IEnumerator LoadLevel(string scene_name)
-    {
+    { 
         // Play animation
         transition.SetTrigger("Start");
         // Wait
         yield return new WaitForSeconds(transitionTime);
         // Load scene
-
+        last_scene = SceneManager.GetActiveScene().name;
+        Debug.Log(last_scene);
         SceneManager.LoadScene(scene_name);
+
     }
 }

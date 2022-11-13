@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class MainMenuButtonManager : MonoBehaviour
 {
-    [SerializeField] TelevisionManager manager;
+    TelevisionManager manager;
 
     bool disabled = false;
-
+    
+    void Start() 
+    {
+        manager = GameObject.Find("TelevistionManager").GetComponent<TelevisionManager>();
+    }
+    
     public void OnExitGamePress()
     {
         if (disabled)
@@ -25,7 +30,6 @@ public class MainMenuButtonManager : MonoBehaviour
 
         disabled = true;
         Debug.Log("Settings Button Pressed.");
-        manager.SetTest("W");
         manager.ChangeScene("Settings");
     }
 }
