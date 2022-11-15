@@ -121,6 +121,34 @@ public partial class @Minigames : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""HighNoon"",
+            ""id"": ""2c69f885-ec9c-4caa-897e-e45b542c2117"",
+            ""actions"": [
+                {
+                    ""name"": ""Stop"",
+                    ""type"": ""Button"",
+                    ""id"": ""61399d7a-7595-493f-bfe6-45cc95d33ceb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""01c4bb46-f682-45e2-8814-bc368276bb87"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Stop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -131,6 +159,9 @@ public partial class @Minigames : IInputActionCollection2, IDisposable
         m_Hotdog_Button2 = m_Hotdog.FindAction("Button2", throwIfNotFound: true);
         m_Hotdog_Button3 = m_Hotdog.FindAction("Button3", throwIfNotFound: true);
         m_Hotdog_Button4 = m_Hotdog.FindAction("Button4", throwIfNotFound: true);
+        // HighNoon
+        m_HighNoon = asset.FindActionMap("HighNoon", throwIfNotFound: true);
+        m_HighNoon_Stop = m_HighNoon.FindAction("Stop", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -243,11 +274,48 @@ public partial class @Minigames : IInputActionCollection2, IDisposable
         }
     }
     public HotdogActions @Hotdog => new HotdogActions(this);
+
+    // HighNoon
+    private readonly InputActionMap m_HighNoon;
+    private IHighNoonActions m_HighNoonActionsCallbackInterface;
+    private readonly InputAction m_HighNoon_Stop;
+    public struct HighNoonActions
+    {
+        private @Minigames m_Wrapper;
+        public HighNoonActions(@Minigames wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Stop => m_Wrapper.m_HighNoon_Stop;
+        public InputActionMap Get() { return m_Wrapper.m_HighNoon; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(HighNoonActions set) { return set.Get(); }
+        public void SetCallbacks(IHighNoonActions instance)
+        {
+            if (m_Wrapper.m_HighNoonActionsCallbackInterface != null)
+            {
+                @Stop.started -= m_Wrapper.m_HighNoonActionsCallbackInterface.OnStop;
+                @Stop.performed -= m_Wrapper.m_HighNoonActionsCallbackInterface.OnStop;
+                @Stop.canceled -= m_Wrapper.m_HighNoonActionsCallbackInterface.OnStop;
+            }
+            m_Wrapper.m_HighNoonActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Stop.started += instance.OnStop;
+                @Stop.performed += instance.OnStop;
+                @Stop.canceled += instance.OnStop;
+            }
+        }
+    }
+    public HighNoonActions @HighNoon => new HighNoonActions(this);
     public interface IHotdogActions
     {
         void OnButton1(InputAction.CallbackContext context);
         void OnButton2(InputAction.CallbackContext context);
         void OnButton3(InputAction.CallbackContext context);
         void OnButton4(InputAction.CallbackContext context);
+    }
+    public interface IHighNoonActions
+    {
+        void OnStop(InputAction.CallbackContext context);
     }
 }

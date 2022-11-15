@@ -99,6 +99,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "HighNoon",
+            "id": "2c69f885-ec9c-4caa-897e-e45b542c2117",
+            "actions": [
+                {
+                    "name": "Stop",
+                    "type": "Button",
+                    "id": "61399d7a-7595-493f-bfe6-45cc95d33ceb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "01c4bb46-f682-45e2-8814-bc368276bb87",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Stop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

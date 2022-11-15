@@ -6,12 +6,27 @@ using UnityEngine;
 
 public class HighNoon : MonoBehaviour
 {
+    [SerializeField] Collider2D objectCollider;
+    [SerializeField] Collider2D anotherCollider;
 
-    private void OnTriggerStay2D(Collider2D col)
+    Minigames input;
+
+    private void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        input = new Minigames(); // Create the new input
+    }
+
+    private void OnEnable() => input.Enable(); // Must enable the input
+
+    private void OnDisable() => input.Disable(); // Must disable the input
+
+    private void Update()
+    {
+        // if the objects are colliding and space is being pressed, High Noon
+        if (objectCollider.IsTouching(anotherCollider))
         {
-            Debug.Log("High Noon!");
+            if (input.HighNoon.Stop.WasPressedThisFrame())
+                Debug.Log("High Noon");
         }
     }
 }
