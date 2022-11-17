@@ -149,6 +149,195 @@ public partial class @Minigames : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""ClearSky"",
+            ""id"": ""72ca659a-2709-41fc-b588-80da7a60b31c"",
+            ""actions"": [
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""91dd7dd2-98b0-4e0a-8718-95dbeee175ed"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Rotate"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""ea66a1e0-7a3d-483a-ab08-66165801ea8a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Zoom"",
+                    ""type"": ""Button"",
+                    ""id"": ""32416362-1a2b-455a-942d-bdf6077e642e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""035c726c-4ad5-4da8-937b-d4bd0bac4494"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""71f45fc5-c8dc-4794-8840-8a09c20f0b16"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""8dd0515c-5764-4b6b-b88e-7b00654c2869"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""03dc1877-94d5-40b0-a28f-6818c85859aa"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""3fb77d9a-2e3d-4cfa-9b95-c2d68e026cf4"",
+                    ""path"": ""<Gamepad>/rightStick/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""a6101cd8-0a1d-405c-9d7c-6ef77e396e93"",
+                    ""path"": ""<Gamepad>/rightStick/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""e28d0d27-a42d-4514-8b8f-758bf30689b4"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""26cd7124-8598-4485-b03a-e8ac80efb785"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""c260c121-3e80-46a6-b94f-9c30f24932c2"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""caee8e23-201b-47be-9d56-895ac2a68f46"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""f4c40249-695a-4838-86e4-817e7778a971"",
+                    ""path"": ""<Gamepad>/leftStick/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""a361a3d8-0cae-431a-9646-32fc23d6b2a6"",
+                    ""path"": ""<Gamepad>/leftStick/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""34f0fd30-d403-4a7e-bf65-c7819af556d9"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6d92c83b-ba0d-4e7b-a216-a3312c456ff3"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -162,6 +351,11 @@ public partial class @Minigames : IInputActionCollection2, IDisposable
         // HighNoon
         m_HighNoon = asset.FindActionMap("HighNoon", throwIfNotFound: true);
         m_HighNoon_Stop = m_HighNoon.FindAction("Stop", throwIfNotFound: true);
+        // ClearSky
+        m_ClearSky = asset.FindActionMap("ClearSky", throwIfNotFound: true);
+        m_ClearSky_Move = m_ClearSky.FindAction("Move", throwIfNotFound: true);
+        m_ClearSky_Rotate = m_ClearSky.FindAction("Rotate", throwIfNotFound: true);
+        m_ClearSky_Zoom = m_ClearSky.FindAction("Zoom", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -307,6 +501,55 @@ public partial class @Minigames : IInputActionCollection2, IDisposable
         }
     }
     public HighNoonActions @HighNoon => new HighNoonActions(this);
+
+    // ClearSky
+    private readonly InputActionMap m_ClearSky;
+    private IClearSkyActions m_ClearSkyActionsCallbackInterface;
+    private readonly InputAction m_ClearSky_Move;
+    private readonly InputAction m_ClearSky_Rotate;
+    private readonly InputAction m_ClearSky_Zoom;
+    public struct ClearSkyActions
+    {
+        private @Minigames m_Wrapper;
+        public ClearSkyActions(@Minigames wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Move => m_Wrapper.m_ClearSky_Move;
+        public InputAction @Rotate => m_Wrapper.m_ClearSky_Rotate;
+        public InputAction @Zoom => m_Wrapper.m_ClearSky_Zoom;
+        public InputActionMap Get() { return m_Wrapper.m_ClearSky; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(ClearSkyActions set) { return set.Get(); }
+        public void SetCallbacks(IClearSkyActions instance)
+        {
+            if (m_Wrapper.m_ClearSkyActionsCallbackInterface != null)
+            {
+                @Move.started -= m_Wrapper.m_ClearSkyActionsCallbackInterface.OnMove;
+                @Move.performed -= m_Wrapper.m_ClearSkyActionsCallbackInterface.OnMove;
+                @Move.canceled -= m_Wrapper.m_ClearSkyActionsCallbackInterface.OnMove;
+                @Rotate.started -= m_Wrapper.m_ClearSkyActionsCallbackInterface.OnRotate;
+                @Rotate.performed -= m_Wrapper.m_ClearSkyActionsCallbackInterface.OnRotate;
+                @Rotate.canceled -= m_Wrapper.m_ClearSkyActionsCallbackInterface.OnRotate;
+                @Zoom.started -= m_Wrapper.m_ClearSkyActionsCallbackInterface.OnZoom;
+                @Zoom.performed -= m_Wrapper.m_ClearSkyActionsCallbackInterface.OnZoom;
+                @Zoom.canceled -= m_Wrapper.m_ClearSkyActionsCallbackInterface.OnZoom;
+            }
+            m_Wrapper.m_ClearSkyActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
+                @Rotate.started += instance.OnRotate;
+                @Rotate.performed += instance.OnRotate;
+                @Rotate.canceled += instance.OnRotate;
+                @Zoom.started += instance.OnZoom;
+                @Zoom.performed += instance.OnZoom;
+                @Zoom.canceled += instance.OnZoom;
+            }
+        }
+    }
+    public ClearSkyActions @ClearSky => new ClearSkyActions(this);
     public interface IHotdogActions
     {
         void OnButton1(InputAction.CallbackContext context);
@@ -317,5 +560,11 @@ public partial class @Minigames : IInputActionCollection2, IDisposable
     public interface IHighNoonActions
     {
         void OnStop(InputAction.CallbackContext context);
+    }
+    public interface IClearSkyActions
+    {
+        void OnMove(InputAction.CallbackContext context);
+        void OnRotate(InputAction.CallbackContext context);
+        void OnZoom(InputAction.CallbackContext context);
     }
 }
