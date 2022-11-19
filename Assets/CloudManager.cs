@@ -10,10 +10,16 @@ public class CloudManager : MonoBehaviour
     public static event System.Action<float, float> onNewRound;
     public static event System.Action onRoundEnd;
 
-    float boundX = 20f;
-    float boundY = 20f;
-    float amountOfCloudsX = 5f;
-    float amountOfCloudsY = 5f;
+    float boundary = 20f;
+
+    enum Difficulty
+    {
+        Easy,
+        Medium,
+        Hard
+    }
+
+    Difficulty difficulty = Difficulty.Easy;
 
     void Start()
     {
@@ -33,26 +39,55 @@ public class CloudManager : MonoBehaviour
     private void FinishedRound(bool finishedGame)
     {
         onRoundEnd?.Invoke();
-        Testing();
-        onNewRound?.Invoke(amountOfCloudsX * amountOfCloudsY, 30f);
+
+        if (finishedGame)
+        {
+            if (difficulty != Difficulty.Hard)
+                difficulty += 1;
+        }
+        else
+        {
+            if (difficulty != Difficulty.Easy)
+                difficulty -= 1;
+        }
+
+        int cloudAmount = 0;
+
+        switch (difficulty)
+        {
+            case Difficulty.Easy:
+                cloudAmount = 5;
+                boundary = 20f;
+                break;
+            case Difficulty.Medium:
+                cloudAmount = 7;
+                boundary = 40f;
+                break;
+            case Difficulty.Hard:
+                cloudAmount = 10;
+                boundary = 50f;
+                break;
+        }
+        CreateRound(cloudAmount);
+        onNewRound?.Invoke(cloudAmount * cloudAmount, 30f);
     }
 
     /// <summary>
     /// For testing only. Creates a field of clouds.
     /// </summary>
-    void Testing()
+    void CreateRound(int cloundAmount)
     {
 
-        for (int x = 0; x < amountOfCloudsX; x++)
+        for (int x = 0; x < cloundAmount; x++)
         {
-            for (int y = 0; y < amountOfCloudsY; y++)
+            for (int y = 0; y < cloundAmount; y++)
             {
                 Vector3 randomPos = new Vector3(GetRandomX(), GetRandomY(), 0);
                 Quaternion randomRot = GetRandomAngle();
                 Instantiate(cloud, randomPos, randomRot);
             }
         }
-        onCloudCreation?.Invoke(new Vector2(boundX, boundY));
+        onCloudCreation?.Invoke(new Vector2(boundary, boundary));
     }
 
     /// <summary>
@@ -61,7 +96,7 @@ public class CloudManager : MonoBehaviour
     /// <returns></returns>
     float GetRandomX()
     {
-        return Random.Range(-boundX, boundY);
+        return Random.Range(-boundary, boundary);
     }
 
     /// <summary>
@@ -70,7 +105,7 @@ public class CloudManager : MonoBehaviour
     /// <returns></returns>
     float GetRandomY()
     {
-        return Random.Range(-boundY, boundY);
+        return Random.Range(-boundary, boundary);
     }
 
     /// <summary>

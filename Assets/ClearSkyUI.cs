@@ -54,6 +54,9 @@ public class ClearSkyUI : MonoBehaviour
     /// </summary>
     private void IncreaseScore()
     {
+        if (finishedView.activeSelf)
+            return;
+
         currentScore++;
         HasFinishedGame();
     }
@@ -86,6 +89,7 @@ public class ClearSkyUI : MonoBehaviour
 
         // completed game via score
         finishedGame = true;
+        timerOn = false;
         UpdateDispalyViewText(finishedGame);
     }
 
