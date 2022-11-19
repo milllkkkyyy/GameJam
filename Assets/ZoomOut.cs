@@ -7,9 +7,9 @@ public class ZoomOut : MonoBehaviour
     Camera cam;
     Minigames input;
 
-    float maxZoom = 20f;
-    float minZoom = 10f;
-    float zoomSpeed = 0.01f;
+    float maxZoom = 30f;
+    float minZoom = 20f;
+    float zoomSpeed = 0.1f;
 
     private void Awake()
     {
@@ -18,14 +18,13 @@ public class ZoomOut : MonoBehaviour
         input.Enable();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (input.ClearSky.Zoom.IsPressed())
+        if (input.ClearSky.Zoom.IsPressed()) // zoom out
         {
             cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, maxZoom, zoomSpeed);
         }
-        else
+        else // zoom back in
         {
             cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, minZoom, zoomSpeed);
         }

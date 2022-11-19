@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class Dissolve : MonoBehaviour
 {
+    public static event System.Action onCloudDeath;
     SpriteRenderer spriteRenderer;
     Vector2 boundary;
 
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
-        CloudManager manager = GameObject.Find("CloudManager").GetComponent<CloudManager>();
-        boundary = manager.GetBoundary();
+    void OnEnable()
+    {
+        CloudManager.onCloudCreation += InitializeCloud;
+        CloudManager.onRoundEnd += DeleteCloud;
+    }
+
+    void OnDisable()
+    {
+        CloudManager.onCloudCreation -= InitializeCloud;
+        CloudManager.onRoundEnd -= DeleteCloud;
     }
 
     void Update()
@@ -22,12 +32,33 @@ public class Dissolve : MonoBehaviour
         ShouldDelete();
     }
 
-    void ShouldDelete()
+    void DeleteCloud() => Destroy(gameObject);
+
+    /// <summary>
+    /// Initialize the cloud with correct boundary
+    /// </summary>
+    /// <param name="boundary"></param>
+    /// <param name="amountOfClouds"></param>
+    void InitializeCloud(Vector2 boundary)
     {
-        if (spriteRenderer.color.a <= 0)
-            Destroy(this);
+        this.boundary = boundary;
     }
 
+    /// <summary>
+    /// Should the cloud be deleted
+    /// </summary>
+    void ShouldDelete()
+    {
+        if (spriteRenderer.color.a <= 0.1)
+        {
+            onCloudDeath?.Invoke();
+            Destroy(gameObject);
+        }
+    }
+
+    /// <summary>
+    /// Changle the alpha of the cloud when it gets near the boundary
+    /// </summary>
     void ChangeAlpha()
     {
         Color tmp = spriteRenderer.color;
@@ -37,11 +68,19 @@ public class Dissolve : MonoBehaviour
         spriteRenderer.color = tmp;
     }
 
+    /// <summary>
+    /// Check if the cloud is above or below y boundary
+    /// </summary>
+    /// <returns></returns>
     bool CheckYBoundary()
     {
         return transform.position.y > boundary.y || transform.position.y < -boundary.y;
     }
 
+    /// <summary>
+    /// Check if the cloud is right or left of x boundary
+    /// </summary>
+    /// <returns></returns>
     bool CheckXBoundary()
     {
         return transform.position.x > boundary.x || transform.position.x < -boundary.x;

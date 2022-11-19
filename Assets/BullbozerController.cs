@@ -18,9 +18,17 @@ public class BullbozerController : MonoBehaviour
 
     bool zoom = false;
 
-    private void OnDisable() => input.Disable();
+    private void OnEnable()
+    {
+        CloudManager.onRoundEnd += Reset;
+        input.Enable();
+    }
 
-    private void OnEnable() => input.Enable();
+    private void OnDisable()
+    {
+        CloudManager.onRoundEnd -= Reset;
+        input.Disable();
+    }
 
     private void Awake()
     {
@@ -51,5 +59,11 @@ public class BullbozerController : MonoBehaviour
         transform.Rotate(Vector3.forward * rotation);
 
         rb.velocity = transform.right * inputMove * bulldozerSpeed;
+    }
+
+    private void Reset()
+    {
+        transform.position = Vector2.zero;
+        transform.rotation = Quaternion.Euler(Vector3.zero);
     }
 }
