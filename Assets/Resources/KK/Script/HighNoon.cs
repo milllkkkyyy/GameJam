@@ -8,6 +8,8 @@ public class HighNoon : MonoBehaviour
 {
     [SerializeField] Collider2D objectCollider;
     [SerializeField] Collider2D anotherCollider;
+    [SerializeField] Rotation scriptRotation;
+
 
     Minigames input;
 
@@ -26,7 +28,11 @@ public class HighNoon : MonoBehaviour
         if (objectCollider.IsTouching(anotherCollider))
         {
             if (input.HighNoon.Stop.WasPressedThisFrame())
+            {
+                scriptRotation.SetDegreesPerSecond(scriptRotation.degreesPerSecond+-20);
                 Debug.Log("High Noon");
+                scriptRotation.GetDegreesPerSecond();
+            }
         }
     }
 }

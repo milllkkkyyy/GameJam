@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Rotation : MonoBehaviour
 {
-    float degreesPerSecond = -90;
+    public float degreesPerSecond = -90;
 
     // Start is called before the first frame update
     void Start()
@@ -16,5 +16,15 @@ public class Rotation : MonoBehaviour
     void Update()
     {
         transform.Rotate(new Vector3(0, 0, degreesPerSecond) * Time.deltaTime);
+    }
+
+    public float GetDegreesPerSecond()
+    {
+        return degreesPerSecond;
+    }
+
+    public void SetDegreesPerSecond(float degreesPerSecond)
+    {
+        this.degreesPerSecond = degreesPerSecond;  
     }
 }
