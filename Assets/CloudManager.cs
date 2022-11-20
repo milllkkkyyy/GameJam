@@ -7,8 +7,8 @@ public class CloudManager : MonoBehaviour
     [SerializeField] GameObject cloud;
 
     public static event System.Action<Vector2> onCloudCreation;
-    public static event System.Action<float, float> onNewRound;
-    public static event System.Action onRoundEnd;
+    public static event System.Action<float, float> onNewRound; /// imagine this as creating an "void onNewRound(float a, float b)"
+    public static event System.Action onRoundEnd; // imagine this as creating a "void onRoundEnd()"
 
     float boundary = 20f;
 
@@ -87,6 +87,7 @@ public class CloudManager : MonoBehaviour
                 Instantiate(cloud, randomPos, randomRot);
             }
         }
+        // Actions need to invoke inorder to tell other methods to begin.
         onCloudCreation?.Invoke(new Vector2(boundary, boundary));
     }
 

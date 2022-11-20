@@ -89,19 +89,19 @@ public partial class @Minigames : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""f6b0127e-c054-4997-9bd3-8b0854f1f254"",
-                    ""path"": """",
+                    ""id"": ""d37c83d8-5ccb-4d3e-bcb9-9cda1070bcc9"",
+                    ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Button2"",
+                    ""action"": ""Button3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""d37c83d8-5ccb-4d3e-bcb9-9cda1070bcc9"",
-                    ""path"": """",
+                    ""id"": ""4a3827ba-8454-4e78-b0d4-7421776a8953"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -112,11 +112,44 @@ public partial class @Minigames : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""86c5986e-a007-43d0-8a6e-9da67cf3aa96"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Button4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c73dbd67-e47c-4469-8d25-b32967e9caab"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d504f049-3b6d-4cc6-a467-791b2bb0ea2e"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eeefa0c4-2def-4a3a-9814-3f18c5e7dc0b"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Button2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
