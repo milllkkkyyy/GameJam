@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Security;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -21,18 +22,23 @@ public class HighNoon : MonoBehaviour
     private void OnEnable() => input.Enable(); // Must enable the input
 
     private void OnDisable() => input.Disable(); // Must disable the input
-
     private void Update()
     {
-        // if the objects are colliding and space is being pressed, High Noon
+        //if the objects are colliding and space is being pressed, High Noon
         if (objectCollider.IsTouching(anotherCollider))
         {
             if (input.HighNoon.Stop.WasPressedThisFrame())
             {
+                HNScoreScript.scoreValue += 1; 
                 scriptRotation.SetDegreesPerSecond(scriptRotation.degreesPerSecond+-20);
                 Debug.Log("High Noon");
                 scriptRotation.GetDegreesPerSecond();
             }
+            //else
+            //{
+                //FindObjectOfType<HighNoonManager>().GameOver();
+            //}
+            
         }
     }
 }
