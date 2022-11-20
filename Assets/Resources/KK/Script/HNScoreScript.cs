@@ -8,7 +8,7 @@ public class HNScoreScript : MonoBehaviour
 {
     public TextMeshProUGUI highNoonScore;
     public static int scoreValue;
-
+    
     public void Start()
     {
         highNoonScore = GetComponent<TextMeshProUGUI>();

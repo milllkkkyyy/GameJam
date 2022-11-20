@@ -7,21 +7,26 @@ using UnityEngine;
 
 public class HighNoon : MonoBehaviour
 {
-    [SerializeField] Collider2D objectCollider;
-    [SerializeField] Collider2D anotherCollider;
+    [SerializeField] CircleCollider2D objectCollider;
+    [SerializeField] BoxCollider2D anotherCollider;
+    [SerializeField] BoxCollider2D lostCollider;
     [SerializeField] Rotation scriptRotation;
 
 
     Minigames input;
 
+    bool won =false;
+
     private void Awake()
     {
         input = new Minigames(); // Create the new input
+        scriptRotation.GetDegreesPerSecond();
     }
 
     private void OnEnable() => input.Enable(); // Must enable the input
 
     private void OnDisable() => input.Disable(); // Must disable the input
+
     private void Update()
     {
         //if the objects are colliding and space is being pressed, High Noon
@@ -29,16 +34,23 @@ public class HighNoon : MonoBehaviour
         {
             if (input.HighNoon.Stop.WasPressedThisFrame())
             {
-                HNScoreScript.scoreValue += 1; 
-                scriptRotation.SetDegreesPerSecond(scriptRotation.degreesPerSecond+-20);
+                won = true;
+                HNScoreScript.scoreValue += 1;
+                scriptRotation.SetDegreesPerSecond(scriptRotation.degreesPerSecond + -20);
                 Debug.Log("High Noon");
                 scriptRotation.GetDegreesPerSecond();
             }
-            //else
-            //{
-                //FindObjectOfType<HighNoonManager>().GameOver();
-            //}
+           
+        } 
+        if (anotherCollider.IsTouching(lostCollider))
+        {
+            if (!won)
+            {
+                FindObjectOfType<HighNoonManager>().GameOver();
+            }
+            
             
         }
+
     }
 }
