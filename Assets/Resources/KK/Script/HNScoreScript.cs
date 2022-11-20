@@ -3,17 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Diagnostics.CodeAnalysis;
 
 public class HNScoreScript : MonoBehaviour
 {
-    public TextMeshProUGUI highNoonScore;
-    public static int scoreValue;
-    
-    public void Start()
+
+    [SerializeField] TextMeshProUGUI highNoonScore;
+    int scoreValue;
+    private void OnEnable()
     {
-        highNoonScore = GetComponent<TextMeshProUGUI>();
+        HNUpdateScore.onUpdateScore += IncreaseScore;
+        HNGameLost.onPlayerLoss += ResetScore;
+        HNGameWon.OnHighNoon += ScoreReached;
     }
-    public void Update()
+    private void OnDisable()
+    {
+        HNUpdateScore.onUpdateScore -= IncreaseScore;
+        HNGameLost.onPlayerLoss -= ResetScore; 
+        HNGameWon.OnHighNoon -= ScoreReached;
+    }
+
+    void IncreaseScore()
+    {
+        scoreValue++;
+    }
+    void ResetScore()
+    {
+        scoreValue = 0;
+    }
+    void ScoreReached()
+    {
+        if (scoreValue != 12)
+        {
+            highNoonScore.text = "You Won!"; 
+        }
+    }
+
+    void Update()
     {
         highNoonScore.text = "" + scoreValue;
     }
