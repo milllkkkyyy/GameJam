@@ -34,10 +34,10 @@ public class HighNoon : MonoBehaviour
                 Debug.Log("High Noon");
                 scriptRotation.GetDegreesPerSecond();
             }
-            //else
-            //{
-                //FindObjectOfType<HighNoonManager>().GameOver();
-            //}
+            else
+            {
+                FindObjectOfType<HighNoonManager>().GameOver();
+            }
             
         }
     }
