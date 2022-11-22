@@ -6,25 +6,31 @@ public class Rotation : MonoBehaviour
 {
     public float degreesPerSecond = -90;
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
-        
+        HNUpdateScore.onUpdateScore += IncreaseRotation;
+        HNGameLost.onPlayerLoss += ResetRotation;
     }
-
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
+    {
+        HNUpdateScore.onUpdateScore -= IncreaseRotation;
+        HNGameLost.onPlayerLoss -= ResetRotation;
+    }
+        
+    void Update() 
     {
         transform.Rotate(new Vector3(0, 0, degreesPerSecond) * Time.deltaTime);
     }
-
-    public float GetDegreesPerSecond()
+    
+    void IncreaseRotation()
     {
-        return degreesPerSecond;
+        degreesPerSecond += -30;
     }
-
-    public void SetDegreesPerSecond(float degreesPerSecond)
+    
+    void ResetRotation()
     {
-        this.degreesPerSecond = degreesPerSecond;  
+        degreesPerSecond = -90;
     }
+    
+
 }
