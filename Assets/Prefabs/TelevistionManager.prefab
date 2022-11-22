@@ -125,6 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transition: {fileID: 977285555311397643}
   knobIntensity: {fileID: 3922861780317766216}
+  knobDifficulty: {fileID: 0}
 --- !u!1 &977285555311397637
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,7 +464,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.92153007, y: 0.24000001}
   m_AnchorMax: {x: 0.92153007, y: 0.24000001}
-  m_AnchoredPosition: {x: 0, y: 0.0000030994}
+  m_AnchoredPosition: {x: 0, y: 0.0000038146973}
   m_SizeDelta: {x: 92.24072, y: 89.65442}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3229367550692692689
