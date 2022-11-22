@@ -4,11 +4,13 @@ using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TelevisionManager: MonoBehaviour
+public class TelevisionManager : MonoBehaviour
 {
     [SerializeField] Animator transition;
 
     [SerializeField] GameObject knobIntensity;
+
+    [SerializeField] GameObject knobDifficulty;
 
     public static event System.Action<float> onIntensityStartChange;
 
@@ -40,7 +42,24 @@ public class TelevisionManager: MonoBehaviour
 
     float delayIntesityTimer = 0.0f;
 
-    bool rotatingIntesityKnob = false;
+    bool rotatingIntensityKnob = false;
+
+    // Difficulty related variables
+
+    enum Difficulties
+    {
+        Easy,
+        Medium,
+        Hard
+    }
+
+    const int difficultySize = 3;
+
+    Difficulties currentDifficulty = Difficulties.Easy;
+
+    float knobDifficultyAngle = 0.0f;
+
+    bool rotatingDifficultyKnob = false;
 
     /// <summary>
     /// Check if there are two DontDestoryOnLoad
@@ -61,7 +80,7 @@ public class TelevisionManager: MonoBehaviour
 
     private void Start()
     {
-        delayIntensityTimerCap = Random.Range(3, 5);
+        delayIntensityTimerCap = Random.Range(10, 20);
     }
 
     private void Update()
@@ -70,6 +89,51 @@ public class TelevisionManager: MonoBehaviour
             return;
 
         HandleIntensityKnob();
+        HandleDifficultyKnob();
+    }
+
+    /// <summary>
+    /// Handle the difficulty knob
+    /// </summary>
+    private void HandleDifficultyKnob()
+    {
+        if (rotatingDifficultyKnob)
+        {
+            ChangeRotationOfDifficultyKnob();
+            if (animationDelayTimer > animationDelayCap)
+            {
+                rotatingDifficultyKnob = false;
+                transition.SetTrigger("Intensity_end");
+                animationDelayTimer = 0.0f;
+            }
+            animationDelayTimer += Time.unscaledDeltaTime;
+        }
+    }
+
+    /// <summary>
+    /// Change the difficulty
+    /// </summary>
+    private void ChangeDifficulty()
+    {
+        currentDifficulty = RandomDifficulty(currentDifficulty);
+    }
+
+    /// <summary>
+    /// Calculates a random value in a enum, excluding an enum
+    /// </summary>
+    /// <param name="difficultyToExclude"></param>
+    /// <returns>A random enum</returns>
+    private Difficulties RandomDifficulty(Difficulties difficultyToExclude)
+    {
+        int random = Random.Range(0, difficultySize);
+        if (random == (int)difficultyToExclude)
+        {
+            return RandomDifficulty(difficultyToExclude);
+        }
+        else
+        {
+            return (Difficulties)random;
+        }
     }
 
     /// <summary>
@@ -77,14 +141,14 @@ public class TelevisionManager: MonoBehaviour
     /// </summary>
     private void HandleIntensityKnob()
     {
-        if (!rotatingIntesityKnob)
+        if (!rotatingIntensityKnob)
         {
             if (delayIntesityTimer > delayIntensityTimerCap)
             {
                 transition.SetTrigger("Difficulty_start"); // start animation
-                delayIntensityTimerCap = Random.Range(3, 5); // reset timer cap
+                delayIntensityTimerCap = Random.Range(10, 20); // reset timer cap
                 delayIntesityTimer = 0.0f; // reset timer
-                rotatingIntesityKnob = true; // the knob is currently rotation
+                rotatingIntensityKnob = true; // the knob is currently rotation
                 ChangeIntensity();
             }
             delayIntesityTimer += Time.unscaledDeltaTime;
@@ -94,7 +158,7 @@ public class TelevisionManager: MonoBehaviour
             ChangeRotationOfIntesityKnob();
             if (animationDelayTimer > animationDelayCap)
             {
-                rotatingIntesityKnob = false;
+                rotatingIntensityKnob = false;
                 transition.SetTrigger("Difficulty_end");
                 animationDelayTimer = 0.0f;
             }
@@ -127,10 +191,10 @@ public class TelevisionManager: MonoBehaviour
     }
 
     /// <summary>
-    /// Calculates a random intensity, excluding a float
+    /// Calculates a random value in a list, excluding a value in the list
     /// </summary>
     /// <param name="intensityToExclude"></param>
-    /// <returns>a float that is random</returns>
+    /// <returns>a random float</returns>
     private float RandomIntensity(float intensityToExclude)
     {
         int random = Random.Range(0, intesityMultipliers.Count);
@@ -196,6 +260,16 @@ public class TelevisionManager: MonoBehaviour
         float rotation = Mathf.LerpAngle(knobIntensity.transform.rotation.eulerAngles.z, knobIntensityAngle, 0.001f);
         knobIntensity.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotation);
     }
+
+    /// <summary>
+    /// Change the rotation of the intensity knob.
+    /// </summary>
+    private void ChangeRotationOfDifficultyKnob()
+    {
+        float rotation = Mathf.LerpAngle(knobDifficulty.transform.rotation.eulerAngles.z, knobDifficultyAngle, 0.001f);
+        knobDifficulty.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotation);
+    }
+
 
     /// <summary>
     /// Get the current scene
