@@ -32,4 +32,14 @@ public class MainMenuButtonManager : MonoBehaviour
         Debug.Log("Settings Button Pressed.");
         manager.ChangeScene("Settings");
     }
+
+    public void OnPlayPress()
+    {
+        if (disabled)
+            return;
+
+        disabled = true;
+        Debug.Log("Settings Button Pressed.");
+        manager.ChangeToRandomMinigame();
+    }
 }

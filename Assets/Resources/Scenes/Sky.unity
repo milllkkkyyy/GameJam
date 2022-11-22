@@ -1045,6 +1045,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: TelevistionManager
       objectReference: {fileID: 0}
+    - target: {fileID: 977285555311397640, guid: 9671a9484ce864928a1be40c7cb736b4, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 586644692}
+    - target: {fileID: 977285555497508544, guid: 9671a9484ce864928a1be40c7cb736b4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -386.54996
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9671a9484ce864928a1be40c7cb736b4, type: 3}
 --- !u!1 &1617575729

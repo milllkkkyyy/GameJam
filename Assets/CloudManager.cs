@@ -56,16 +56,16 @@ public class CloudManager : MonoBehaviour
         switch (difficulty)
         {
             case Difficulty.Easy:
-                cloudAmount = 5;
-                boundary = 20f;
+                cloudAmount = 3;
+                boundary = 10f;
                 break;
             case Difficulty.Medium:
-                cloudAmount = 7;
-                boundary = 40f;
+                cloudAmount = 6;
+                boundary = 20f;
                 break;
             case Difficulty.Hard:
                 cloudAmount = 10;
-                boundary = 50f;
+                boundary = 40f;
                 break;
         }
         CreateRound(cloudAmount);

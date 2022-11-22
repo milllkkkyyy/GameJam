@@ -16,17 +16,19 @@ public class BullbozerController : MonoBehaviour
 
     float bulldozerSpeed = 10f;
 
-    bool zoom = false;
+    float intensityMultiplier = 1.0f;
 
     private void OnEnable()
     {
         CloudManager.onRoundEnd += Reset;
+        TelevisionManager.onIntensityStartChange += ChangingIntenityKnob;
         input.Enable();
     }
 
     private void OnDisable()
     {
         CloudManager.onRoundEnd -= Reset;
+        TelevisionManager.onIntensityStartChange -= ChangingIntenityKnob;
         input.Disable();
     }
 
@@ -58,12 +60,17 @@ public class BullbozerController : MonoBehaviour
         float rotation = -inputRotate * bulldozerRotation;
         transform.Rotate(Vector3.forward * rotation);
 
-        rb.velocity = transform.right * inputMove * bulldozerSpeed;
+        rb.velocity = transform.right * inputMove * bulldozerSpeed * intensityMultiplier;
     }
 
     private void Reset()
     {
         transform.position = Vector2.zero;
         transform.rotation = Quaternion.Euler(Vector3.zero);
+    }
+
+    private void ChangingIntenityKnob(float intensity)
+    {
+        intensityMultiplier = intensity;
     }
 }
