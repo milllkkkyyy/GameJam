@@ -359,7 +359,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -199.25, y: 303.04}
+  m_AnchoredPosition: {x: -199.25, y: 238}
   m_SizeDelta: {x: 500, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &740712583
@@ -382,10 +382,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Settings
+  m_text: SETTINGS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ae67ec2a10294ee4583bfe5ad34e63aa, type: 2}
-  m_sharedMaterial: {fileID: 235977416911883686, guid: ae67ec2a10294ee4583bfe5ad34e63aa, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8c5187e09cdffe94598355e6b7b56132, type: 2}
+  m_sharedMaterial: {fileID: -6151327463277226845, guid: 8c5187e09cdffe94598355e6b7b56132, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -409,8 +409,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
-  m_fontSizeBase: 100
+  m_fontSize: 130
+  m_fontSizeBase: 130
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -525,6 +525,10 @@ PrefabInstance:
     - target: {fileID: 977285555497508544, guid: 9671a9484ce864928a1be40c7cb736b4, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -43
+      objectReference: {fileID: 0}
+    - target: {fileID: 7153092862433517040, guid: 9671a9484ce864928a1be40c7cb736b4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9671a9484ce864928a1be40c7cb736b4, type: 3}

@@ -24,7 +24,7 @@ public class Rotation : MonoBehaviour
     
     void IncreaseRotation()
     {
-        degreesPerSecond += -30;
+        degreesPerSecond += -10;
     }
     
     void ResetRotation()
