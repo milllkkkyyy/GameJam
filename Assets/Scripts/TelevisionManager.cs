@@ -14,11 +14,17 @@ public class TelevisionManager : MonoBehaviour
 
     public static event System.Action<float> onIntensityStartChange;
 
+    public static event System.Action onGameChange;
+
+    public static event System.Action onGameLoad;
+
+    public static event System.Action onReset;
+
     private static TelevisionManager instance;
 
     // Transition related variables
 
-    string[] minigames = new string[] { "Sky", "Highnoon" };
+    string[] minigames = new string[] { "Sky", "KK" };
 
     string last_scene = "";
 
@@ -44,6 +50,12 @@ public class TelevisionManager : MonoBehaviour
 
     bool rotatingIntensityKnob = false;
 
+    // Changing game related variables
+
+    float delayGameChangeTimerCap = 15f;
+
+    float delayGameChangeTimer = 0.0f;
+
     // Difficulty related variables
 
     enum Difficulties
@@ -53,13 +65,7 @@ public class TelevisionManager : MonoBehaviour
         Hard
     }
 
-    const int difficultySize = 3;
-
     Difficulties currentDifficulty = Difficulties.Easy;
-
-    float knobDifficultyAngle = 0.0f;
-
-    bool rotatingDifficultyKnob = false;
 
     /// <summary>
     /// Check if there are two DontDestoryOnLoad
@@ -80,6 +86,7 @@ public class TelevisionManager : MonoBehaviour
 
     private void Start()
     {
+        delayGameChangeTimerCap = Random.Range(5, 10);
         delayIntensityTimerCap = Random.Range(10, 20);
     }
 
@@ -88,26 +95,20 @@ public class TelevisionManager : MonoBehaviour
         if (GetCurrentScene() == "MainMenu" || GetCurrentScene() == "Settings")
             return;
 
-        HandleIntensityKnob();
-        HandleDifficultyKnob();
+        HandleSwitchGame();
+        //HandleIntensityKnob();
     }
 
-    /// <summary>
-    /// Handle the difficulty knob
-    /// </summary>
-    private void HandleDifficultyKnob()
+    private void HandleSwitchGame()
     {
-        if (rotatingDifficultyKnob)
+        if (delayGameChangeTimer > delayGameChangeTimerCap)
         {
-            ChangeRotationOfDifficultyKnob();
-            if (animationDelayTimer > animationDelayCap)
-            {
-                rotatingDifficultyKnob = false;
-                transition.SetTrigger("Intensity_end");
-                animationDelayTimer = 0.0f;
-            }
-            animationDelayTimer += Time.unscaledDeltaTime;
+            delayGameChangeTimer = 0.0f;
+            delayGameChangeTimerCap = Random.Range(5, 10);
+            onGameChange?.Invoke();
+            ChangeToRandomMinigame();
         }
+        delayGameChangeTimer += Time.deltaTime;
     }
 
     /// <summary>
@@ -115,25 +116,7 @@ public class TelevisionManager : MonoBehaviour
     /// </summary>
     private void ChangeDifficulty()
     {
-        currentDifficulty = RandomDifficulty(currentDifficulty);
-    }
-
-    /// <summary>
-    /// Calculates a random value in a enum, excluding an enum
-    /// </summary>
-    /// <param name="difficultyToExclude"></param>
-    /// <returns>A random enum</returns>
-    private Difficulties RandomDifficulty(Difficulties difficultyToExclude)
-    {
-        int random = Random.Range(0, difficultySize);
-        if (random == (int)difficultyToExclude)
-        {
-            return RandomDifficulty(difficultyToExclude);
-        }
-        else
-        {
-            return (Difficulties)random;
-        }
+        currentDifficulty = currentDifficulty + 1;
     }
 
     /// <summary>
@@ -151,7 +134,7 @@ public class TelevisionManager : MonoBehaviour
                 rotatingIntensityKnob = true; // the knob is currently rotation
                 ChangeIntensity();
             }
-            delayIntesityTimer += Time.unscaledDeltaTime;
+            delayIntesityTimer += Time.deltaTime;
         }
         else
         {
@@ -222,7 +205,7 @@ public class TelevisionManager : MonoBehaviour
                 notCurrentGame.Add(game);
         }
         // randomly choose a game that is currently not being played
-        ChangeScene(notCurrentGame[notCurrentGame.Count - 1]);
+        ChangeScene(notCurrentGame[Random.Range(0, notCurrentGame.Count)]);
     }
 
     /// <summary>
@@ -247,9 +230,8 @@ public class TelevisionManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(transitionTime);
         // Load scene
         last_scene = SceneManager.GetActiveScene().name;
-        Debug.Log(last_scene);
         SceneManager.LoadScene(scene_name);
-
+        onGameLoad?.Invoke();
     }
 
     /// <summary>
@@ -260,16 +242,6 @@ public class TelevisionManager : MonoBehaviour
         float rotation = Mathf.LerpAngle(knobIntensity.transform.rotation.eulerAngles.z, knobIntensityAngle, 0.001f);
         knobIntensity.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotation);
     }
-
-    /// <summary>
-    /// Change the rotation of the intensity knob.
-    /// </summary>
-    private void ChangeRotationOfDifficultyKnob()
-    {
-        float rotation = Mathf.LerpAngle(knobDifficulty.transform.rotation.eulerAngles.z, knobDifficultyAngle, 0.001f);
-        knobDifficulty.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotation);
-    }
-
 
     /// <summary>
     /// Get the current scene

@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Resources/Scenes/Sky.unity
     guid: f55714e8705fa4a699a6d0b1025483c6
+  - enabled: 1
+    path: Assets/Resources/Scenes/KK.unity
+    guid: 7161a80637177c04282d63520c248490
   m_configObjects: {}

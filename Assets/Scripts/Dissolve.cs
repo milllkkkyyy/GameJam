@@ -17,12 +17,14 @@ public class Dissolve : MonoBehaviour
     {
         CloudManager.onCloudCreation += InitializeCloud;
         CloudManager.onRoundEnd += DeleteCloud;
+        TelevisionManager.onGameChange += SaveCloud;
     }
 
     void OnDisable()
     {
         CloudManager.onCloudCreation -= InitializeCloud;
         CloudManager.onRoundEnd -= DeleteCloud;
+        TelevisionManager.onGameChange -= SaveCloud;
     }
 
     void Update()
@@ -33,6 +35,14 @@ public class Dissolve : MonoBehaviour
     }
 
     void DeleteCloud() => Destroy(gameObject);
+
+    void SaveCloud()
+    {
+        SkyMinigame.Cloud cloud = new SkyMinigame.Cloud();
+        cloud.SaveTransform(this.transform);
+        cloud.SetVelocity(GetComponent<Rigidbody2D>().velocity);
+        DataManager.sky.SaveCloud(cloud);
+    }
 
     /// <summary>
     /// Initialize the cloud with correct boundary

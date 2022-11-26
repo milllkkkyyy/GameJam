@@ -22,6 +22,8 @@ public class BullbozerController : MonoBehaviour
     {
         CloudManager.onRoundEnd += Reset;
         TelevisionManager.onIntensityStartChange += ChangingIntenityKnob;
+        TelevisionManager.onGameChange += SavePlayerInformation;
+        CloudManager.loadPlayerData += LoadPlayerInformation;
         input.Enable();
     }
 
@@ -29,6 +31,8 @@ public class BullbozerController : MonoBehaviour
     {
         CloudManager.onRoundEnd -= Reset;
         TelevisionManager.onIntensityStartChange -= ChangingIntenityKnob;
+        TelevisionManager.onGameChange -= SavePlayerInformation;
+        CloudManager.loadPlayerData -= LoadPlayerInformation;
         input.Disable();
     }
 
@@ -46,6 +50,21 @@ public class BullbozerController : MonoBehaviour
     void FixedUpdate()
     {
         HandleMovement();
+    }
+
+    void LoadPlayerInformation()
+    {
+        SkyMinigame.Player data = DataManager.sky.GetPlayer();
+        data.LoadTransform(transform);
+        rb.velocity = data.GetVelocity();
+    }
+
+    void SavePlayerInformation()
+    {
+        SkyMinigame.Player data = new SkyMinigame.Player();
+        data.SaveTransform(this.transform);
+        data.SetVelocity(rb.velocity);
+        DataManager.sky.SetPlayer(data);
     }
 
     void GetInput()

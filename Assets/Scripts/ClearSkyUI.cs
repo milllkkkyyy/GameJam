@@ -28,12 +28,23 @@ public class ClearSkyUI : MonoBehaviour
     {
         Dissolve.onCloudDeath += IncreaseScore;
         CloudManager.onNewRound += InitializeUI;
+        TelevisionManager.onGameChange += SaveUIInformation;
     }
 
     private void OnDisable()
     {
         Dissolve.onCloudDeath -= IncreaseScore;
         CloudManager.onNewRound -= InitializeUI;
+        TelevisionManager.onGameChange -= SaveUIInformation;
+    }
+
+    private void SaveUIInformation()
+    {
+        SkyMinigame.UIData data = new SkyMinigame.UIData();
+        data.SetCurrentScore(currentScore);
+        data.SetTime(timeLeftInSeconds);
+        data.SetTotalScore(totalScore);
+        DataManager.sky.SetUIData(data);
     }
 
     /// <summary>
@@ -41,8 +52,10 @@ public class ClearSkyUI : MonoBehaviour
     /// </summary>
     /// <param name="amountOfClouds"></param>
     /// <param name="timeInSeconds"></param>
-    private void InitializeUI(float amountOfClouds, float timeInSeconds)
+    private void InitializeUI(float amountOfClouds, float timeInSeconds, float currentScore, float totalScore)
     {
+        this.currentScore = currentScore;
+        this.totalScore = totalScore;
         this.amountOfClouds = amountOfClouds;
         timeLeftInSeconds = timeInSeconds;
         finishedGame = false;
