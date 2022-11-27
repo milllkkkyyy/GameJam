@@ -9,38 +9,64 @@ public class HNScoreScript : MonoBehaviour
 {
 
     [SerializeField] TextMeshProUGUI highNoonScore;
+
+    public static event System.Action onHighNoon;
+
     int scoreValue;
+
+    float uiTimer = 0.0f;
+
+    float uiTimerCap = 10.0f;
+
     private void OnEnable()
     {
         HNUpdateScore.onUpdateScore += IncreaseScore;
         HNGameLost.onPlayerLoss += ResetScore;
-        HNGameWon.OnHighNoon += ScoreReached;
     }
     private void OnDisable()
     {
         HNUpdateScore.onUpdateScore -= IncreaseScore;
         HNGameLost.onPlayerLoss -= ResetScore; 
-        HNGameWon.OnHighNoon -= ScoreReached;
     }
 
     void IncreaseScore()
     {
         scoreValue++;
+
+        // we handle this here so it is only called once.
+        if (scoreValue == 12) // If score value is 12, game is completed
+        {
+            highNoonScore.text = "You Won!"; // change text
+            onHighNoon?.Invoke(); // stop the rotation of the pointer
+        }
     }
     void ResetScore()
     {
         scoreValue = 0;
     }
+
     void ScoreReached()
     {
-        if (scoreValue != 12)
+        if (scoreValue == 12)
         {
-            highNoonScore.text = "You Won!"; 
+            highNoonScore.text = "You Won!";
         }
     }
 
     void Update()
     {
-        highNoonScore.text = "" + scoreValue;
+        if (scoreValue < 12)
+        {
+            highNoonScore.text = "" + scoreValue;
+        }
+        else
+        {
+            // this is a way to create a timer
+            if (uiTimer >= uiTimerCap) // timer >= 15 seconds, finished timer
+            {
+                //game won switch games.
+            }
+            uiTimer += Time.deltaTime; // timer += time;
+        }
     }
 }

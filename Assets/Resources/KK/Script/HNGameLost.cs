@@ -17,6 +17,7 @@ public class HNGameLost : MonoBehaviour
     {
         HNUpdateScore.onUpdateScore -= PlayerWon;
     }
+
     void PlayerWon()
     {
         won = true;
