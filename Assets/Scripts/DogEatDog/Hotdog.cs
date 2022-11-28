@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,27 +10,28 @@ public class Hotdog : MonoBehaviour
     private int currentBites = 0;
     Minigames input; // The input schema we are using
     InputAction action; // Instead of checking KeyCode check InputAction
-
+    //[SerializeField] private Transform endPos;
+    
     //[SerializeField] HotDogBite HotDogButtonValue;
     
     public HotDogBite HotDogButtonValue;
+    public float speed = 0.2f;
+    private bool firstBite;
+    
+    
 
     void Awake()
     {
+        input = new Minigames(); 
+        
+       // HotDogButtonValue = Object.FindObjectsOfType<HotDogButtonValue>();
        
-        input = new Minigames();
-
-       
-
 
         //when the game begins, set which button you need to mash for this hot dog as well
         //as how many bites (maxbites) required to eat the whole dog. this is determined by difficulty (gamevolume)
         this.maxBites = 5;
         //this.maxBites= 5*game.Difficulty
-       
-
-        //When created, move the hotdog up out of the bowl 
-        this.moveOutofBowl();
+        firstBite = false;
 
 
     }
@@ -40,7 +42,8 @@ public class Hotdog : MonoBehaviour
 
     void Start()
     {
-        int random = Random.Range(1, 4);
+        
+        int random = Random.Range(1, 5);
         switch (random)
         {
             case 1:
@@ -70,32 +73,45 @@ public class Hotdog : MonoBehaviour
                 break;
 
         }
+       
     }
 
     void Update()
     {
+
+
        
-        if (action.WasPressedThisFrame())
+            if (action.WasPressedThisFrame())
+            {
+                Debug.Log("Bite.");
+                Bite();
+            }
+
+            
+       
+        if (transform.position.y < 1)
         {
-            Debug.Log("Bite.");
-            Bite();
+            transform.Translate(Vector2.up * speed * Time.deltaTime);
         }
     }
 
     void Bite()
     {
         currentBites += 1;
+        if (firstBite == false)
+        {
+            firstBite = true;
+            //transform.position = new Vector2(-5f, 1);
+            speed = 3f;
+            Debug.Log("FirstBite");
+            //transform.position = endPos.position;
+        }
+        HotDogButtonValue.BitePress();
     }
 
     public bool IsFinished()
     {
         return this.currentBites >= maxBites;
-    }
-
-    private void moveOutofBowl()
-    {
-        //Follow a set path and move the hotdog upwards a few units, gliding. When done, activate the ability to do inputs.
-
     }
 
     public void SetInputAction(InputAction action)
@@ -106,6 +122,8 @@ public class Hotdog : MonoBehaviour
     {
         this.input = input;
     }
+
+    
 
 
 

@@ -17,15 +17,9 @@ public class HotdogHandler : MonoBehaviour
     Hotdog hotdog;
     GameObject clone;
     [SerializeField] PlayerScoreTracker playerScoreTracker;
-    
     //[SerializeField] HotDogBite buttonValue;
-
-
-
-
-
-    int amountEaten =0; 
-
+    int amountEaten =0;
+    public bool isPlayer = true;
     void Start()
     {
        
@@ -58,8 +52,6 @@ public class HotdogHandler : MonoBehaviour
         //clone = Instantiate(hotdogGO, spawnLocation,buttonValue);
         clone = Instantiate(hotdogGO, spawnLocation);
         hotdog = clone.GetComponent<Hotdog>();
-        //after creating hotdog, assign it a button value
-       // buttonValue.SetButtonValue("W");
 
     }
 

@@ -26,4 +26,12 @@ public class HotDogBite : MonoBehaviour
 
         requiredButton = newValue;
     }
+
+    public void BitePress()
+    {
+        //when you successfully bite one time then flash on screen. 
+        displayedButton.color = Color.green;
+
+
+    }
 }
