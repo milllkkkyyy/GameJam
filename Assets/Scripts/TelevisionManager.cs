@@ -52,12 +52,35 @@ public class TelevisionManager : MonoBehaviour
         delayGameChangeTimerCap = Random.Range(5, 10);
     }
 
+
+    private void OnEnable()
+    {
+        DataManager.onIncreaseDifficulty += HandleIncreaseDifficultySwitch;
+        DataManager.onIncreaseDifficulty += HandleDecreaseDifficultySwitch;
+    }
+
+    private void OnDisable()
+    {
+        DataManager.onIncreaseDifficulty -= HandleIncreaseDifficultySwitch;
+        DataManager.onIncreaseDifficulty -= HandleDecreaseDifficultySwitch;
+    }
+
     private void Update()
     {
         if (GetCurrentScene() == "MainMenu" || GetCurrentScene() == "Settings")
             return;
 
         HandleSwitchGame();
+    }
+
+    private void HandleIncreaseDifficultySwitch()
+    {
+        ChangeToRandomMinigame();
+    }
+
+    private void HandleDecreaseDifficultySwitch()
+    {
+        ChangeToRandomMinigame();
     }
 
     /// <summary>
@@ -78,7 +101,7 @@ public class TelevisionManager : MonoBehaviour
     /// <summary>
     /// Change the scene to a random minigame
     /// </summary>
-    public void ChangeToRandomMinigame()
+    public void ChangeToRandomMinigame(string trigger = "Change_Start")
     {
         // create a new list to fill with currently not played games
         List<string> notCurrentGame = new List<string>();
@@ -89,16 +112,16 @@ public class TelevisionManager : MonoBehaviour
                 notCurrentGame.Add(game);
         }
         // randomly choose a game that is currently not being played
-        ChangeScene(notCurrentGame[Random.Range(0, notCurrentGame.Count)]);
+        ChangeScene(notCurrentGame[Random.Range(0, notCurrentGame.Count)], trigger);
     }
 
     /// <summary>
     /// Change the current scene
     /// </summary>
     /// <param name="scene_name"></param>
-    public void ChangeScene(string scene_name)
+    public void ChangeScene(string scene_name, string trigger)
     {
-        StartCoroutine(LoadLevel(scene_name));
+        StartCoroutine(LoadLevel(scene_name, trigger));
     }
 
     /// <summary>
@@ -106,10 +129,10 @@ public class TelevisionManager : MonoBehaviour
     /// </summary>
     /// <param name="scene_name"></param>
     /// <returns>IEnumerator</returns>
-    IEnumerator LoadLevel(string scene_name)
+    IEnumerator LoadLevel(string scene_name, string trigger)
     { 
         // Play animation
-        transition.SetTrigger("Change_Start");
+        transition.SetTrigger(trigger);
         // Wait
         yield return new WaitForSecondsRealtime(transitionTime);
         // Load scene

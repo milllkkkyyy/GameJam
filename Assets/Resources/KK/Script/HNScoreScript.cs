@@ -44,7 +44,7 @@ public class HNScoreScript : MonoBehaviour
         }
         else
         {
-            switch (DataManager.difficulty)
+            switch (DataManager.GetDifficulty())
             {
                 case 1:
                     finalScore = 6;
@@ -87,7 +87,7 @@ public class HNScoreScript : MonoBehaviour
             // this is a way to create a timer
             if (uiTimer >= uiTimerCap) // timer >= 15 seconds, finished timer
             {
-                //game won switch games.
+                DataManager.IncreaseDifficulty();
             }
             uiTimer += Time.deltaTime; // timer += time;
         }

@@ -30,7 +30,7 @@ public class MainMenuButtonManager : MonoBehaviour
 
         disabled = true;
         Debug.Log("Settings Button Pressed.");
-        manager.ChangeScene("Settings");
+        manager.ChangeScene("Settings", "Change_Start");
     }
 
     public void OnPlayPress()

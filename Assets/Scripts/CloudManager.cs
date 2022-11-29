@@ -67,7 +67,7 @@ public class CloudManager : MonoBehaviour
         onRoundEnd?.Invoke();
 
         int cloudAmount = 0;
-        switch (DataManager.difficulty)
+        switch (DataManager.GetDifficulty())
         {
             case 1:
                 cloudAmount = 3;

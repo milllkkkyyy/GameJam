@@ -33,7 +33,7 @@ public class Rotation : MonoBehaviour
         }
         else
         {
-            switch (DataManager.difficulty)
+            switch (DataManager.GetDifficulty())
             {
                 case 1:
                     speed = -10;

@@ -20,7 +20,7 @@ public class SettingsButtonManger : MonoBehaviour
 
         disabled = true;
         Debug.Log("Return Button Pressed.");
-        manager.ChangeScene(manager.GetLastScene());
+        manager.ChangeScene(manager.GetLastScene(), "Change_Start");
         // function calls always need parenthesis 
     }
 }
