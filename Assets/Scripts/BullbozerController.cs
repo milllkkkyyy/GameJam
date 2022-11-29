@@ -88,8 +88,9 @@ public class BullbozerController : MonoBehaviour
         transform.rotation = Quaternion.Euler(Vector3.zero);
     }
 
-    private void ChangingIntenityKnob(float intensity)
+    private void ChangingIntenityKnob(int intensity)
     {
-        intensityMultiplier = intensity;
+        intensityMultiplier = 1.0f;
+        //fix this
     }
 }

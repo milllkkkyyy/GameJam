@@ -12,7 +12,7 @@ public class TelevisionManager : MonoBehaviour
 
     [SerializeField] GameObject knobDifficulty;
 
-    public static event System.Action<float> onIntensityStartChange;
+    public static event System.Action<int> onIntensityStartChange;
 
     public static event System.Action onGameChange;
 
@@ -38,9 +38,7 @@ public class TelevisionManager : MonoBehaviour
 
     // Intensity related variables
 
-    List<float> intesityMultipliers = new List<float> { 1.0f, 1.5f, 2.0f };
-
-    float currentIntensityValue = 1.0f;
+    int intensity = 1;
 
     float knobIntensityAngle = 0.0f;
 
@@ -154,9 +152,9 @@ public class TelevisionManager : MonoBehaviour
     /// </summary>
     private void ChangeIntensity()
     {
-        currentIntensityValue = RandomIntensity(currentIntensityValue);
-        int intensityIndex = intesityMultipliers.IndexOf(currentIntensityValue);
-        switch (intensityIndex)
+        intensity = Random.Range(0, 5);
+        
+        switch (intensity)
         {
             case 0:
                 knobIntensityAngle = 0;
@@ -169,28 +167,8 @@ public class TelevisionManager : MonoBehaviour
                 break;
 
         }
-        Debug.Log(currentIntensityValue);
-        onIntensityStartChange?.Invoke(currentIntensityValue);
+        onIntensityStartChange?.Invoke(intensity);
     }
-
-    /// <summary>
-    /// Calculates a random value in a list, excluding a value in the list
-    /// </summary>
-    /// <param name="intensityToExclude"></param>
-    /// <returns>a random float</returns>
-    private float RandomIntensity(float intensityToExclude)
-    {
-        int random = Random.Range(0, intesityMultipliers.Count);
-        if (Mathf.Abs(intesityMultipliers[random] - intensityToExclude) < 0.1)
-        {
-            return RandomIntensity(intensityToExclude);
-        }
-        else
-        {
-            return intesityMultipliers[random];
-        }        
-    }
-
     /// <summary>
     /// Change the scene to a random minigame
     /// </summary>

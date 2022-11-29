@@ -22,13 +22,9 @@ public class Hotdog : MonoBehaviour
 
     void Awake()
     {
-        input = new Minigames(); 
-        
-       // HotDogButtonValue = Object.FindObjectsOfType<HotDogButtonValue>();
-       
+        input = new Minigames();
 
-        //when the game begins, set which button you need to mash for this hot dog as well
-        //as how many bites (maxbites) required to eat the whole dog. this is determined by difficulty (gamevolume)
+        HotDogButtonValue = GameObject.Find("HotDogButtonValue").GetComponent<HotDogBite>();
         this.maxBites = 5;
         //this.maxBites= 5*game.Difficulty
         firstBite = false;
