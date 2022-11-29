@@ -63,7 +63,8 @@ public class HighnoonMinigame
 
     Pointer pointer = new Pointer();
     Data data = new Data();
-    int visited = -1;
+    int visitedData = -1;
+    int visitedPointer = -1;
 
     public void SetPointer(Pointer pointer)
     {
@@ -85,9 +86,15 @@ public class HighnoonMinigame
         return this.data;
     }
 
-    public bool Visited()
+    public bool VisitedData()
     {
-        visited++;
-        return visited > 0;
+        visitedData++;
+        return visitedData > 0;
+    }
+
+    public bool VisitedPointer()
+    {
+        visitedPointer++;
+        return visitedPointer > 0;
     }
 }

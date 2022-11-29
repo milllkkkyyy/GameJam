@@ -24,7 +24,7 @@ public class Rotation : MonoBehaviour
 
     private void Start()
     {
-        if (DataManager.high.Visited()) // if we have visited this game before
+        if (DataManager.high.VisitedPointer()) // if we have visited this game before
         {
             // get the data from the pointer 
             HighnoonMinigame.Pointer pointer = DataManager.high.GetPointer();

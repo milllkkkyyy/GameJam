@@ -35,7 +35,7 @@ public class HNScoreScript : MonoBehaviour
 
     private void Start()
     {
-        if (DataManager.high.Visited()) // if we have visited this game before
+        if (DataManager.high.VisitedData()) // if we have visited this game before
         {
             // get the data from the pointer 
             HighnoonMinigame.Data data = DataManager.high.GetData();
