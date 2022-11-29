@@ -172,9 +172,9 @@ public class SkyMinigame
         this.player = player;
     }
 
-    public int Visited()
+    public bool Visited()
     {
         visited++;
-        return visited;
+        return visited > 0;
     }
 }

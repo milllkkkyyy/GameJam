@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
-public class HighnoonMinigame : MonoBehaviour
+public class HighnoonMinigame
 {
     public class Pointer
     {
@@ -88,6 +88,6 @@ public class HighnoonMinigame : MonoBehaviour
     public bool Visited()
     {
         visited++;
-        return visited >= 0;
+        return visited > 0;
     }
 }

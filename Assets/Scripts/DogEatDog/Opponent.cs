@@ -37,39 +37,6 @@ public class Opponent : MonoBehaviour
 
     }
 
-    public void OnEnable()
-    {
-        TelevisionManager.onIntensityStartChange += SetDifficulty;
-    }
-
-    public void OnDisable()
-    {
-        TelevisionManager.onIntensityStartChange -= SetDifficulty;
-    }
-
-    public void SetDifficulty(int intensity)
-    {
-        difficulty = (int)intensity;
-        switch (difficulty)
-        {
-            case 1:
-                biteSpeed = 0.5f;
-                burpChance = 10;
-                break;
-            case 2:
-                biteSpeed = 1f;
-                burpChance = 15;
-                break;
-            case 3:
-                biteSpeed = 1.5f;
-                burpChance = 25;
-                break;
-            case 4:
-                biteSpeed = 2;
-                burpChance = 100;
-                break;
-        }
-    }
     void CreateHotdog()
     {
        
