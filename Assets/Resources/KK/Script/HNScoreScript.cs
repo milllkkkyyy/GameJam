@@ -45,14 +45,6 @@ public class HNScoreScript : MonoBehaviour
         scoreValue = 0;
     }
 
-    void ScoreReached()
-    {
-        if (scoreValue == 12)
-        {
-            highNoonScore.text = "You Won!";
-        }
-    }
-
     void Update()
     {
         if (scoreValue < 12)
