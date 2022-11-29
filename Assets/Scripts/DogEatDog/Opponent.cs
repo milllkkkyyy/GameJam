@@ -10,7 +10,6 @@ public class Opponent : MonoBehaviour
    // Hotdog hotdog;
    // GameObject clone;
     public int amountEaten = 0;
-    public int difficulty = 1;
     public float biteSpeed=1;
     public int burpChance=100;
     [SerializeField] Timer time;
@@ -21,36 +20,9 @@ public class Opponent : MonoBehaviour
     private void Start()
     {
         //coroutine loop which ends if the timer is 0 or hasnt begun.
-        
+
         //CreateHotdog();
-    }
-  
-
-    private void Update()
-    {
-        if (time.isActive() && currentTime >= biteSpeed)
-        {
-            currentTime = 0.0f;
-            Bite();
-        }
-        currentTime += Time.deltaTime;
-
-    }
-
-    public void OnEnable()
-    {
-        TelevisionManager.onIntensityStartChange += SetDifficulty;
-    }
-
-    public void OnDisable()
-    {
-        TelevisionManager.onIntensityStartChange -= SetDifficulty;
-    }
-
-    public void SetDifficulty(int intensity)
-    {
-        difficulty = (int)intensity;
-        switch (difficulty)
+        switch (DataManager.GetDifficulty())
         {
             case 1:
                 biteSpeed = 0.5f;
@@ -68,8 +40,28 @@ public class Opponent : MonoBehaviour
                 biteSpeed = 2;
                 burpChance = 100;
                 break;
+            default:
+                biteSpeed = 2.5f;
+                burpChance = 100;
+                break;
         }
     }
+  
+
+    private void Update()
+    {
+        //if(currentdifficult= difficulty) do this
+        if (time.isActive() && currentTime >= biteSpeed)
+        {
+            currentTime = 0.0f;
+            Bite();
+        }
+        currentTime += Time.deltaTime;
+        //else( setbitespeed()
+
+    }
+
+   
     void CreateHotdog()
     {
        
@@ -89,5 +81,6 @@ public class Opponent : MonoBehaviour
 
     }
 
+    //win datamanager.win() 
 
 }

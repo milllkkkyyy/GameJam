@@ -30,8 +30,27 @@ public class HotDogBite : MonoBehaviour
     public void BitePress()
     {
         //when you successfully bite one time then flash on screen. 
-        displayedButton.color = Color.green;
+        StartCoroutine(GreenFlash());
+    }
 
+    public void Burp()
+    {
+        //when you press a wrong buton, you burp. burping means you cannot press any buttons for 1 second. 
+        StartCoroutine(RedFlash());
+    }
+
+    IEnumerator GreenFlash()
+    {
+        displayedButton.color = Color.green;
+        yield return new WaitForSeconds(0.5f);
+        displayedButton.color = Color.white;
+
+    }
+    IEnumerator RedFlash()
+    {
+        displayedButton.color = Color.red;
+        yield return new WaitForSeconds(1);
+        displayedButton.color = Color.white;
 
     }
 }

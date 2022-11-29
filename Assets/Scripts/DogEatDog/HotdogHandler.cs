@@ -20,6 +20,11 @@ public class HotdogHandler : MonoBehaviour
     //[SerializeField] HotDogBite buttonValue;
     int amountEaten =0;
     public bool isPlayer = true;
+
+
+    
+
+
     void Start()
     {
        
@@ -58,16 +63,9 @@ public class HotdogHandler : MonoBehaviour
     void DestroyHotdog()
     {
         Destroy(clone);
-        //Wait .5 seconds between creation
-        StartCoroutine(Wait());
-
         CreateHotdog();
     }
 
-    IEnumerator Wait()
-    {
-        yield return new WaitForSecondsRealtime(1);
-    }
 
     public int GetAmountEaten()
     {

@@ -8,5 +8,15 @@ public static class DataManager
 
     public static HighnoonMinigame high = new HighnoonMinigame();
 
-    public static int difficulty = 0;
+    private static int difficulty = 0;
+
+    public static int GetDifficulty()
+    {
+        return difficulty;
+    }
+
+    public static void IncreaseDifficulty()
+    {
+        difficulty += 1;
+    }
 }

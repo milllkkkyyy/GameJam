@@ -11,7 +11,7 @@ public class Timer : MonoBehaviour
     public bool beginCountdown;
     private void Start()
     {
-        startingTime = 15;
+        startingTime = 70;
         currentTime = startingTime;
         beginCountdown = true;
 
@@ -31,7 +31,7 @@ public class Timer : MonoBehaviour
             //timerText.text = "Time Left: " + currentTime.ToString();
             float minutes = Mathf.FloorToInt(currentTime / 60);
             float seconds = Mathf.FloorToInt(currentTime % 60);
-            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+            timerText.text ="Time Left: " + string.Format("{0:00}:{1:00}", minutes, seconds);
         }
        
     }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,28 +18,29 @@ public class Hotdog : MonoBehaviour
     public HotDogBite HotDogButtonValue;
     public float speed = 0.2f;
     private bool firstBite;
-    
-    
+    private bool isBurping = false;
+    //burptext
+    public TextMeshProUGUI playerBurp;
 
-    void Awake()
+    private void Awake()
     {
         input = new Minigames();
-
-        HotDogButtonValue = GameObject.Find("HotDogButtonValue").GetComponent<HotDogBite>();
-        this.maxBites = 5;
-        //this.maxBites= 5*game.Difficulty
-        firstBite = false;
-
-
     }
-
     void OnEnable() => input.Enable();
 
     void OnDisable() => input.Disable();
 
     void Start()
     {
-        
+
+        playerBurp = GameObject.Find("BurpText").GetComponent<TextMeshProUGUI>();
+
+
+        HotDogButtonValue = GameObject.Find("HotDogButtonValue").GetComponent<HotDogBite>();
+        this.maxBites = 5;
+        //this.maxBites= 5*game.Difficulty
+        firstBite = false;
+
         int random = Random.Range(1, 5);
         switch (random)
         {
@@ -74,23 +76,28 @@ public class Hotdog : MonoBehaviour
 
     void Update()
     {
+        if (isBurping == false)
+        {
+            if (Keyboard.current.anyKey.wasPressedThisFrame) { 
+                if (action.WasPressedThisFrame())
+                {
+                    Debug.Log("Bite.");
+                    Bite();
+                }
+                else
+                {
+                    Burp();
+                    Debug.Log("BURP!");
+                }
+        }
 
-
-       
-            if (action.WasPressedThisFrame())
-            {
-                Debug.Log("Bite.");
-                Bite();
-            }
-
-            
+        }
        
         if (transform.position.y < 1)
         {
             transform.Translate(Vector2.up * speed * Time.deltaTime);
         }
     }
-
     void Bite()
     {
         currentBites += 1;
@@ -119,6 +126,23 @@ public class Hotdog : MonoBehaviour
         this.input = input;
     }
 
+    private void Burp()
+    {
+
+        HotDogButtonValue.Burp();
+        StartCoroutine(BurpWait());
+        //isBurping = true;
+
+    }
+
+    IEnumerator BurpWait()
+    {
+        playerBurp.text = "BURP!";
+        isBurping = true;
+        yield return new WaitForSeconds(1);
+        isBurping = false;
+        playerBurp.text = " ";
+    }
     
 
 

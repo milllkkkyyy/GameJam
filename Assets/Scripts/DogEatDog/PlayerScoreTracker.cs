@@ -9,10 +9,12 @@ public class PlayerScoreTracker : MonoBehaviour
     //public int score = 0;
     public TextMeshProUGUI score;
     public static int amountEaten;
+    
 
     private void Start()
     {
         score = GetComponent<TextMeshProUGUI>();
+        
     }
 
     public void Update()
@@ -23,4 +25,5 @@ public class PlayerScoreTracker : MonoBehaviour
     {
         score.SetText(newScore.ToString());
     }
+    
 }
