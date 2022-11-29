@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class HighnoonMinigame : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class HighnoonMinigame : MonoBehaviour
     {
         Vector3 position;
         Quaternion rotation;
+        float speed;
 
         public void SaveTransform(Transform transform)
         {
@@ -20,25 +22,48 @@ public class HighnoonMinigame : MonoBehaviour
             transform.position = position;
             transform.rotation = rotation;
         }
+
+        public void SetSpeed(float speed)
+        {
+            this.speed = speed;
+        }
+
+        public float GetSpeed()
+        {
+            return this.speed;
+        }
     }
 
     public class Data
     {
-        int score;
+        int currentScore;
+        int finalScore;
 
-        public void SetScore(int score)
+        public void SetCurrentScore(int score)
         {
-            this.score = score;
+            this.currentScore = score;
         }
 
-        public int GetScore()
+        public int GetCurrentScore()
         {
-            return score;
+            return currentScore;
         }
+
+        public void SetFinalScore(int score)
+        {
+            this.finalScore = score;
+        }
+
+        public int GetFinalScore()
+        {
+            return finalScore;
+        }
+
     }
 
     Pointer pointer = new Pointer();
     Data data = new Data();
+    int visited = -1;
 
     public void SetPointer(Pointer pointer)
     {
@@ -58,5 +83,11 @@ public class HighnoonMinigame : MonoBehaviour
     public Data GetData()
     {
         return this.data;
+    }
+
+    public bool Visited()
+    {
+        visited++;
+        return visited >= 0;
     }
 }
