@@ -21,7 +21,6 @@ public class BullbozerController : MonoBehaviour
     private void OnEnable()
     {
         CloudManager.onRoundEnd += Reset;
-        TelevisionManager.onIntensityStartChange += ChangingIntenityKnob;
         TelevisionManager.onGameChange += SavePlayerInformation;
         CloudManager.loadPlayerData += LoadPlayerInformation;
         input.Enable();
@@ -30,7 +29,6 @@ public class BullbozerController : MonoBehaviour
     private void OnDisable()
     {
         CloudManager.onRoundEnd -= Reset;
-        TelevisionManager.onIntensityStartChange -= ChangingIntenityKnob;
         TelevisionManager.onGameChange -= SavePlayerInformation;
         CloudManager.loadPlayerData -= LoadPlayerInformation;
         input.Disable();

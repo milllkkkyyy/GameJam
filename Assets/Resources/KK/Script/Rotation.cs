@@ -5,18 +5,48 @@ using UnityEngine;
 public class Rotation : MonoBehaviour
 {
     public float degreesPerSecond = -90;
+    public float speed = -10;
 
     private void OnEnable()
     {
         HNUpdateScore.onUpdateScore += IncreaseRotation;
         HNGameLost.onPlayerLoss += ResetRotation;
         HNScoreScript.onHighNoon += StopRotation;
+        TelevisionManager.onGameChange += SavePointer;
     }
     private void OnDisable()
     {
         HNUpdateScore.onUpdateScore -= IncreaseRotation;
         HNGameLost.onPlayerLoss -= ResetRotation;
         HNScoreScript.onHighNoon -= StopRotation;
+        TelevisionManager.onGameChange -= SavePointer;
+    }
+
+    private void Start()
+    {
+        if (DataManager.high.Visited()) // if we have visited this game before
+        {
+            // get the data from the pointer 
+            HighnoonMinigame.Pointer pointer = DataManager.high.GetPointer();
+            pointer.LoadTransform(transform);
+            speed = pointer.GetSpeed();
+        }
+        else
+        {
+            switch (DataManager.difficulty)
+            {
+                case 1:
+                    speed = -10;
+                    break;
+                case 2:
+                    speed = -15;
+                    break;
+                case 3:
+                    speed = -20;
+                    break;
+
+            }
+        }
     }
 
     void Update() 
@@ -32,13 +62,19 @@ public class Rotation : MonoBehaviour
 
     void IncreaseRotation()
     {
-        degreesPerSecond += -10;
+        degreesPerSecond += speed;
     }
     
     void ResetRotation()
     {
         degreesPerSecond = -90;
     }
-    
+
+    void SavePointer()
+    {
+        HighnoonMinigame.Pointer pointer = new HighnoonMinigame.Pointer();
+        pointer.SaveTransform(transform);
+        pointer.SetSpeed(speed);
+    }
 
 }
