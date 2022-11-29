@@ -8,7 +8,7 @@ using System.Diagnostics.CodeAnalysis;
 public class HNScoreScript : MonoBehaviour
 {
 
-    [SerializeField] TextMeshProUGUI highNoonScore;
+    [SerializeField] TextMeshProUGUI playerScore;
 
     public static event System.Action onHighNoon;
 
@@ -67,7 +67,7 @@ public class HNScoreScript : MonoBehaviour
         // we handle this here so it is only called once.
         if (scoreValue == finalScore) // If score value is 12, game is completed
         {
-            highNoonScore.text = "You Won!"; // change text
+            playerScore.text = "You Won!"; // change text
             onHighNoon?.Invoke(); // stop the rotation of the pointer
         }
     }
@@ -80,7 +80,7 @@ public class HNScoreScript : MonoBehaviour
     {
         if (scoreValue < finalScore)
         {
-            highNoonScore.text = finalScore + " : " + scoreValue;
+            playerScore.text = " " + scoreValue;
         }
         else
         {
