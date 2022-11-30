@@ -14,6 +14,7 @@ public class HNUpdateScore : MonoBehaviour
     Minigames input;
 
     public static event Action onUpdateScore;
+    public AudioSource gunShot;
 
     // Start is called before the first frame update
     void Awake()
@@ -32,6 +33,7 @@ public class HNUpdateScore : MonoBehaviour
         {
             if (input.HighNoon.Stop.WasPressedThisFrame())
             {
+                gunShot.Play();
                 onUpdateScore?.Invoke();
             }
 

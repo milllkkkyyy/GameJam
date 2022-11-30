@@ -14,7 +14,7 @@ public class HNScoreScript : MonoBehaviour
 
     int scoreValue = 0;
 
-    int finalScore = 12;
+    int finalScore = 6;
 
     float uiTimer = 0.0f;
 
@@ -80,7 +80,7 @@ public class HNScoreScript : MonoBehaviour
     {
         if (scoreValue < finalScore)
         {
-            playerScore.text = " " + scoreValue;
+            playerScore.text = "Current Score:  " + scoreValue + " || Final Score: " + finalScore;
         }
         else
         {
