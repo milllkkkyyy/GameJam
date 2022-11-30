@@ -4,9 +4,7 @@ using UnityEngine;
 
 public static class DataManager
 {
-    public static event System.Action onIncreaseDifficulty;
-
-    public static event System.Action onDecreaseDifficulty;
+    public static event System.Action onDifficultySwitch;
 
     public static SkyMinigame sky = new SkyMinigame();
 
@@ -14,24 +12,30 @@ public static class DataManager
 
     public static DogMinigame dog = new DogMinigame();
 
-    private static int difficulty = 0;
+    private static int difficulty = 1;
 
     private static List<string> minigames = new List<string> { "Sky", "KK" };
+
+    private static bool increasingDifficulty = false;
 
     public static void IncreaseDifficulty()
     {
         /// increase the difficulty
         difficulty++;
 
+        increasingDifficulty = true;
+
         EraseData();
 
         /// invoke the transition
-        onIncreaseDifficulty?.Invoke();
+        onDifficultySwitch?.Invoke();
     }
 
     public static void FailedGame(string scene)
     {
         minigames.Remove(scene);
+
+        increasingDifficulty = false;
 
         if (minigames.Count == 0)
         {
@@ -41,7 +45,7 @@ public static class DataManager
             EraseData();
 
             /// invoke the transition
-            onDecreaseDifficulty?.Invoke();
+            onDifficultySwitch?.Invoke();
         }
     }
 
@@ -57,5 +61,10 @@ public static class DataManager
     public static int GetDifficulty()
     {
         return difficulty;
+    }
+
+    public static bool IncreasingDifficulty()
+    {
+        return increasingDifficulty;
     }
 }

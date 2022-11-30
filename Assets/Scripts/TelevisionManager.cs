@@ -18,7 +18,7 @@ public class TelevisionManager : MonoBehaviour
 
     // Transition related variables
 
-    string[] minigames = new string[] { "Sky", "KK" };
+    string[] minigames = new string[] { "KK" };
 
     string last_scene = "";
 
@@ -49,20 +49,18 @@ public class TelevisionManager : MonoBehaviour
 
     private void Start()
     {
-        delayGameChangeTimerCap = Random.Range(5, 10);
+        delayGameChangeTimerCap = Random.Range(50, 100);
     }
 
 
     private void OnEnable()
     {
-        DataManager.onIncreaseDifficulty += HandleIncreaseDifficultySwitch;
-        DataManager.onIncreaseDifficulty += HandleDecreaseDifficultySwitch;
+        DataManager.onDifficultySwitch += HandleDifficultySwitch;
     }
 
     private void OnDisable()
     {
-        DataManager.onIncreaseDifficulty -= HandleIncreaseDifficultySwitch;
-        DataManager.onIncreaseDifficulty -= HandleDecreaseDifficultySwitch;
+        DataManager.onDifficultySwitch -= HandleDifficultySwitch;
     }
 
     private void Update()
@@ -70,17 +68,12 @@ public class TelevisionManager : MonoBehaviour
         if (GetCurrentScene() == "MainMenu" || GetCurrentScene() == "Settings")
             return;
 
-        HandleSwitchGame();
+       // HandleSwitchGame();
     }
 
-    private void HandleIncreaseDifficultySwitch()
+    private void HandleDifficultySwitch()
     {
-        ChangeToRandomMinigame();
-    }
-
-    private void HandleDecreaseDifficultySwitch()
-    {
-        ChangeToRandomMinigame();
+        ChangeScene(GetCurrentScene(), "Difficulty_Start");
     }
 
     /// <summary>
@@ -91,7 +84,7 @@ public class TelevisionManager : MonoBehaviour
         if (delayGameChangeTimer > delayGameChangeTimerCap)
         {
             delayGameChangeTimer = 0.0f;
-            delayGameChangeTimerCap = Random.Range(5, 10);
+            delayGameChangeTimerCap = Random.Range(50, 100);
             onGameChange?.Invoke();
             ChangeToRandomMinigame();
         }

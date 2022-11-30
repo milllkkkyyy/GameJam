@@ -18,7 +18,9 @@ public class HNScoreScript : MonoBehaviour
 
     float uiTimer = 0.0f;
 
-    float uiTimerCap = 10.0f;
+    float uiTimerCap = 1f;
+
+    bool finishedGame = false;
 
     private void OnEnable()
     {
@@ -47,7 +49,7 @@ public class HNScoreScript : MonoBehaviour
             switch (DataManager.GetDifficulty())
             {
                 case 1:
-                    finalScore = 6;
+                    finalScore = 1;
                     break;
                 case 2:
                     finalScore = 12;
@@ -85,9 +87,11 @@ public class HNScoreScript : MonoBehaviour
         else
         {
             // this is a way to create a timer
-            if (uiTimer >= uiTimerCap) // timer >= 15 seconds, finished timer
+            if (uiTimer >= uiTimerCap && !finishedGame) // timer >= 15 seconds, finished timer
             {
+                uiTimer = 0.0f;
                 DataManager.IncreaseDifficulty();
+                finishedGame = true;
             }
             uiTimer += Time.deltaTime; // timer += time;
         }
