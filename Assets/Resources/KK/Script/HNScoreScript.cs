@@ -8,11 +8,13 @@ using System.Diagnostics.CodeAnalysis;
 public class HNScoreScript : MonoBehaviour
 {
 
-    [SerializeField] TextMeshProUGUI highNoonScore;
+    [SerializeField] TextMeshProUGUI playerScore;
 
     public static event System.Action onHighNoon;
 
-    int scoreValue;
+    int scoreValue = 0;
+
+    int finalScore = 12;
 
     float uiTimer = 0.0f;
 
@@ -22,11 +24,40 @@ public class HNScoreScript : MonoBehaviour
     {
         HNUpdateScore.onUpdateScore += IncreaseScore;
         HNGameLost.onPlayerLoss += ResetScore;
+        TelevisionManager.onGameChange += SaveData;
     }
     private void OnDisable()
     {
         HNUpdateScore.onUpdateScore -= IncreaseScore;
-        HNGameLost.onPlayerLoss -= ResetScore; 
+        HNGameLost.onPlayerLoss -= ResetScore;
+        TelevisionManager.onGameChange -= SaveData;
+    }
+
+    private void Start()
+    {
+        if (DataManager.high.VisitedData()) // if we have visited this game before
+        {
+            // get the data from the pointer 
+            HighnoonMinigame.Data data = DataManager.high.GetData();
+            scoreValue = data.GetCurrentScore();
+            finalScore = data.GetFinalScore();
+        }
+        else
+        {
+            switch (DataManager.GetDifficulty())
+            {
+                case 1:
+                    finalScore = 6;
+                    break;
+                case 2:
+                    finalScore = 12;
+                    break;
+                case 3:
+                    finalScore = 18;
+                    break;
+
+            }
+        }
     }
 
     void IncreaseScore()
@@ -34,9 +65,9 @@ public class HNScoreScript : MonoBehaviour
         scoreValue++;
 
         // we handle this here so it is only called once.
-        if (scoreValue == 12) // If score value is 12, game is completed
+        if (scoreValue == finalScore) // If score value is 12, game is completed
         {
-            highNoonScore.text = "You Won!"; // change text
+            playerScore.text = "You Won!"; // change text
             onHighNoon?.Invoke(); // stop the rotation of the pointer
         }
     }
@@ -45,28 +76,28 @@ public class HNScoreScript : MonoBehaviour
         scoreValue = 0;
     }
 
-    void ScoreReached()
-    {
-        if (scoreValue == 12)
-        {
-            highNoonScore.text = "You Won!";
-        }
-    }
-
     void Update()
     {
-        if (scoreValue < 12)
+        if (scoreValue < finalScore)
         {
-            highNoonScore.text = "" + scoreValue;
+            playerScore.text = " " + scoreValue;
         }
         else
         {
             // this is a way to create a timer
             if (uiTimer >= uiTimerCap) // timer >= 15 seconds, finished timer
             {
-                //game won switch games.
+                DataManager.IncreaseDifficulty();
             }
             uiTimer += Time.deltaTime; // timer += time;
         }
+    }
+
+    void SaveData()
+    {
+        HighnoonMinigame.Data data = new HighnoonMinigame.Data();
+        data.SetCurrentScore(scoreValue);
+        data.SetFinalScore(finalScore);
+        DataManager.high.SetData(data);
     }
 }

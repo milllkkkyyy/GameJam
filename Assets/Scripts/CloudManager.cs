@@ -13,22 +13,9 @@ public class CloudManager : MonoBehaviour
 
     float boundary = 20f;
 
-    enum Difficulty
-    {
-        Easy,
-        Medium,
-        Hard
-    }
-
-    Difficulty difficulty = Difficulty.Easy;
-
     private void Start()
     {
-        if (DataManager.sky.Visited() == 0)
-        {
-            FinishedRound(false);
-        }
-        else
+        if (DataManager.sky.Visited())
         {
             // load cloud data
             List<SkyMinigame.Cloud> cloudData = DataManager.sky.LoadClouds();
@@ -51,18 +38,20 @@ public class CloudManager : MonoBehaviour
 
             loadPlayerData?.Invoke();
         }
+        else
+        {
+            NewRound();
+        }
         DataManager.sky.ResetData();
     }
 
     private void OnEnable()
     {
-        ClearSkyUI.onFinishedRound += FinishedRound;
         TelevisionManager.onGameChange += SaveCloudManager;
     }
 
     private void OnDisable()
     {
-        ClearSkyUI.onFinishedRound -= FinishedRound;
         TelevisionManager.onGameChange -= SaveCloudManager;
     }
 
@@ -73,31 +62,28 @@ public class CloudManager : MonoBehaviour
         DataManager.sky.SetCloudManagerData(manager);
     }
 
-    private void FinishedRound(bool finishedGame)
+    private void NewRound()
     {
-        if (!finishedGame)
-        {
-            onRoundEnd?.Invoke();
+        onRoundEnd?.Invoke();
 
-            int cloudAmount = 0;
-            switch (difficulty)
-            {
-                case Difficulty.Easy:
-                    cloudAmount = 3;
-                    boundary = 10f;
-                    break;
-                case Difficulty.Medium:
-                    cloudAmount = 6;
-                    boundary = 20f;
-                    break;
-                case Difficulty.Hard:
-                    cloudAmount = 10;
-                    boundary = 40f;
-                    break;
-            }
-            CreateRound(cloudAmount);
-            onNewRound?.Invoke(cloudAmount * cloudAmount, 30f, 0, 0);
-        }   
+        int cloudAmount = 0;
+        switch (DataManager.GetDifficulty())
+        {
+            case 1:
+                cloudAmount = 3;
+                boundary = 10f;
+                break;
+            case 2:
+                cloudAmount = 6;
+                boundary = 20f;
+                break;
+            case 3:
+                cloudAmount = 10;
+                boundary = 40f;
+                break;
+        }
+        CreateRound(cloudAmount);
+        onNewRound?.Invoke(cloudAmount * cloudAmount, 30f, 0, 0);
     }
 
     /// <summary>
