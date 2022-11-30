@@ -20,7 +20,7 @@ public class Opponent : MonoBehaviour
     [SerializeField] Transform spawnLocation;
     OpponentHotdog hotdog;
     GameObject clone;
-    [SerializeField] OpponentScore oponentScoreTracker;
+    [SerializeField] OpponentScore oponnentScoreTracker;
 
 
     private void Start()
@@ -31,24 +31,20 @@ public class Opponent : MonoBehaviour
         switch (DataManager.GetDifficulty())
         {
             case 1:
-                biteSpeed = 0.5f;
+                biteSpeed = 1f;
                 burpChance = 10;
                 break;
             case 2:
-                biteSpeed = 1f;
-                burpChance = 15;
+                biteSpeed = 0.5f;
+                burpChance = 30;
                 break;
             case 3:
-                biteSpeed = 1.5f;
-                burpChance = 25;
-                break;
-            case 4:
-                biteSpeed = 2;
-                burpChance = 100;
+                biteSpeed = 0.2f;
+                burpChance = 80;
                 break;
             default:
-                biteSpeed = 2.5f;
-                burpChance = 100;
+                biteSpeed = 0.2f;
+                burpChance = 80;
                 break;
         }
         CreateHotdog();
@@ -65,6 +61,10 @@ public class Opponent : MonoBehaviour
             Bite();
         }
         currentTime += Time.deltaTime;
+        if (time.isActive() == false) 
+        { 
+        DestroyHotdogFinal();
+        }
         //else( setbitespeed()
 
     }
@@ -83,6 +83,11 @@ public class Opponent : MonoBehaviour
         CreateHotdog();
     }
 
+    void DestroyHotdogFinal()
+    {
+        Destroy(clone);
+    }
+
     private void Bite()
     {
         int chance = Random.Range(1, burpChance);
@@ -90,6 +95,7 @@ public class Opponent : MonoBehaviour
         {
             //will this work???
            hotdog.Bite();
+            CheckIfEaten(); 
         }
         else
         {
@@ -103,9 +109,14 @@ public class Opponent : MonoBehaviour
         StartCoroutine(BurpWait());
     }
 
-    private bool CheckIfEaten()
+    private void CheckIfEaten()
     {
-        return hotdog.isFinished();
+        if (hotdog.isFinished())
+        {
+            DestroyHotdog();
+            amountEaten++;
+            oponnentScoreTracker.SetScore(amountEaten);
+        }
     }
 
     IEnumerator BurpWait()
