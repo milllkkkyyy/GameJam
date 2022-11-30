@@ -11,7 +11,7 @@ public class Timer : MonoBehaviour
     public bool beginCountdown;
     private void Start()
     {
-        startingTime = 70;
+        startingTime = 60;
         currentTime = startingTime;
         beginCountdown = true;
 

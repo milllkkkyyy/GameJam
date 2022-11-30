@@ -20,9 +20,10 @@ public class HotdogHandler : MonoBehaviour
     //[SerializeField] HotDogBite buttonValue;
     int amountEaten =0;
     public bool isPlayer = true;
+    public bool deletedHotDog = false;
+    [SerializeField] Timer time;
+    public TextMeshProUGUI displayedButton;
 
-
-    
 
 
     void Start()
@@ -49,12 +50,22 @@ public class HotdogHandler : MonoBehaviour
             //scoreTracker.SetScore(amountEaten);
             
         }
+        if(time.isActive() == false && !deletedHotDog)
+        {
+
+            DestroyHotdogFinal();
+            deletedHotDog = true;
+            displayedButton.text = " ";
+        }
+        if(time.isActive() == false)
+        {
+            displayedButton.text = " ";
+        }
         
     }
 
     void CreateHotdog()
     {
-        //clone = Instantiate(hotdogGO, spawnLocation,buttonValue);
         clone = Instantiate(hotdogGO, spawnLocation);
         hotdog = clone.GetComponent<Hotdog>();
 
@@ -64,6 +75,11 @@ public class HotdogHandler : MonoBehaviour
     {
         Destroy(clone);
         CreateHotdog();
+    }
+
+    void DestroyHotdogFinal()
+    {
+        Destroy(clone);
     }
 
 
