@@ -14,7 +14,13 @@ public class Opponent : MonoBehaviour
     public int burpChance=100;
     [SerializeField] Timer time;
     public float currentTime = 0.0f;
+    public bool isBurping = false;
 
+    [SerializeField] GameObject hotdogGO;
+    [SerializeField] Transform spawnLocation;
+    OpponentHotdog hotdog;
+    GameObject clone;
+    [SerializeField] OpponentScore oponentScoreTracker;
 
 
     private void Start()
@@ -45,13 +51,15 @@ public class Opponent : MonoBehaviour
                 burpChance = 100;
                 break;
         }
+        CreateHotdog();
     }
   
 
     private void Update()
     {
         //if(currentdifficult= difficulty) do this
-        if (time.isActive() && currentTime >= biteSpeed)
+
+        if (isBurping == false && time.isActive() && currentTime >= biteSpeed)
         {
             currentTime = 0.0f;
             Bite();
@@ -61,24 +69,50 @@ public class Opponent : MonoBehaviour
 
     }
 
-   
+
     void CreateHotdog()
     {
-       
-        //clone = Instantiate(hotdogGO, spawnLocation);
-        //hotdog = clone.GetComponent<Hotdog>();
+        clone = Instantiate(hotdogGO, spawnLocation);
+        hotdog = clone.GetComponent<OpponentHotdog>();
 
     }
 
     void DestroyHotdog()
     {
-       // Destroy(clone);
+        Destroy(clone);
         CreateHotdog();
     }
 
     private void Bite()
     {
+        int chance = Random.Range(1, burpChance);
+        if(chance >= 2)
+        {
+            //will this work???
+           hotdog.Bite();
+        }
+        else
+        {
+            Burp();
+        }
 
+    }
+
+    private void Burp()
+    {
+        StartCoroutine(BurpWait());
+    }
+
+    private bool CheckIfEaten()
+    {
+        return hotdog.isFinished();
+    }
+
+    IEnumerator BurpWait()
+    {
+        isBurping = true;
+        yield return new WaitForSeconds(1);
+        isBurping = false;
     }
 
     //win datamanager.win() 

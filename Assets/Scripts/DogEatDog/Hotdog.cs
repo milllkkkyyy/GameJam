@@ -37,7 +37,7 @@ public class Hotdog : MonoBehaviour
 
 
         HotDogButtonValue = GameObject.Find("HotDogButtonValue").GetComponent<HotDogBite>();
-        this.maxBites = 5;
+        this.maxBites = 4;
         //this.maxBites= 5*game.Difficulty
         firstBite = false;
 
