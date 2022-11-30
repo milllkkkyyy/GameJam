@@ -11,13 +11,23 @@ public class HNGameLost : MonoBehaviour
 
     bool won = false;
 
+    private void Start()
+    {
+        if (DataManager.high.VisitedLostData())
+        {
+            won = DataManager.high.GetLostData().GetHasWon();
+        }
+    }
+
     private void OnEnable()
     {
         HNUpdateScore.onUpdateScore += PlayerWon;
+        TelevisionManager.onGameChange += SaveData;
     }
     private void OnDisable()
     {
         HNUpdateScore.onUpdateScore -= PlayerWon;
+        TelevisionManager.onGameChange -= SaveData;
     }
 
     void PlayerWon()
@@ -39,4 +49,13 @@ public class HNGameLost : MonoBehaviour
         }
         
     }
+
+    void SaveData()
+    {
+        HighnoonMinigame.LostData lost = new HighnoonMinigame.LostData();
+        lost.SetHasWon(won);
+        DataManager.high.SetLostData(lost);
+    }
+
+
 }

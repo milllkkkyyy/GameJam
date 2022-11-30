@@ -2,20 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 
-public class DifficultyText : MonoBehaviour
+public class DifficultyUI : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI label;
+    [SerializeField] GameObject imageHolder;
+    [SerializeField] Sprite won;
+    [SerializeField] Sprite lost;
 
-    void SetGameStatusText()
+
+    void SetGameStatusUI()
     {
         if (DataManager.IncreasingDifficulty())
         {
+            imageHolder.GetComponent<Image>().sprite = won;
             label.text = "INCREASING DIFFICULTY";
         }
         else
         {
+            imageHolder.GetComponent<Image>().sprite = lost;
             label.text = "DECREASING DIFFICULTY";
         }
     }

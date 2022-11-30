@@ -61,8 +61,25 @@ public class HighnoonMinigame
 
     }
 
+    public class LostData
+    {
+        bool won;
+
+        public void SetHasWon(bool won)
+        {
+            this.won = won;
+        }
+
+        public bool GetHasWon()
+        {
+            return won;
+        }
+    }
+
     Pointer pointer = new Pointer();
+    LostData lostData = new LostData();
     Data data = new Data();
+    int visitedLostData = -1;
     int visitedData = -1;
     int visitedPointer = -1;
 
@@ -86,6 +103,16 @@ public class HighnoonMinigame
         return this.data;
     }
 
+    public void SetLostData(LostData lostData)
+    {
+        this.lostData = lostData;
+    }
+
+    public LostData GetLostData()
+    {
+        return this.lostData;
+    }
+
     public bool VisitedData()
     {
         visitedData++;
@@ -96,5 +123,11 @@ public class HighnoonMinigame
     {
         visitedPointer++;
         return visitedPointer > 0;
+    }
+
+    public bool VisitedLostData()
+    {
+        visitedLostData++;
+        return visitedLostData > 0;
     }
 }
