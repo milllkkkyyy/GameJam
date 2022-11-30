@@ -8,13 +8,9 @@ public class TelevisionManager : MonoBehaviour
 {
     [SerializeField] Animator transition;
 
-    [SerializeField] GameObject knobIntensity;
-
-    [SerializeField] GameObject knobDifficulty;
-
     public static event System.Action onGameChange;
 
-    private static TelevisionManager instance;
+    public static TelevisionManager instance;
 
     // Transition related variables
 

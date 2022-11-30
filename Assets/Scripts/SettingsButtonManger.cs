@@ -10,7 +10,7 @@ public class SettingsButtonManger : MonoBehaviour
 
     void Start() 
     {
-        manager = GameObject.Find("TelevistionManager").GetComponent<TelevisionManager>();
+        manager = TelevisionManager.instance;
     }
 
     public void OnReturnGamePress()

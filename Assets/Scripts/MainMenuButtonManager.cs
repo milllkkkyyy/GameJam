@@ -4,13 +4,23 @@ using UnityEngine;
 
 public class MainMenuButtonManager : MonoBehaviour
 {
+    [SerializeField] GameObject televisionPrefab;
     TelevisionManager manager;
 
     bool disabled = false;
     
     void Start() 
     {
-        manager = GameObject.Find("TelevistionManager").GetComponent<TelevisionManager>();
+        GameObject tv = GameObject.Find("TelevistionManager(Clone)");
+
+        if (tv == null)
+        {
+            manager = Instantiate(televisionPrefab, Vector3.zero, Quaternion.identity).GetComponent<TelevisionManager>();
+        }
+        else
+        {
+            manager = TelevisionManager.instance;
+        }
     }
     
     public void OnExitGamePress()
