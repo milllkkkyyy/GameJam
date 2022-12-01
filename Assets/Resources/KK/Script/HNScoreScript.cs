@@ -69,6 +69,7 @@ public class HNScoreScript : MonoBehaviour
         // we handle this here so it is only called once.
         if (scoreValue == finalScore) // If score value is 12, game is completed
         {
+            DataManager.transitioning = true;
             DataManager.inputEnabled = false;
             playerScore.text = "You Won!"; // change text
             onHighNoon?.Invoke(); // stop the rotation of the pointer
@@ -77,6 +78,7 @@ public class HNScoreScript : MonoBehaviour
     void ResetScore()
     {
         scoreValue = 0;
+        DataManager.inputEnabled = true;
     }
 
     void Update()

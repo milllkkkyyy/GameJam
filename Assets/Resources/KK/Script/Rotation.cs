@@ -69,6 +69,7 @@ public class Rotation : MonoBehaviour
     void ResetRotation()
     {
         degreesPerSecond = -90;
+        DataManager.inputEnabled = true;
     }
 
     void SavePointer()

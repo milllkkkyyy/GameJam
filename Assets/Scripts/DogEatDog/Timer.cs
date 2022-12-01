@@ -47,11 +47,11 @@ public class Timer : MonoBehaviour
         }
         else if (DataManager.GetDifficulty() == 2)
         {
-            startingTime = 25;
+            startingTime = 30;
         }
         else if (DataManager.GetDifficulty() == 3)
         {
-            startingTime = 20;
+            startingTime = 25;
         }
 
         currentTime = startingTime;

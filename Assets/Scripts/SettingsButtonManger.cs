@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class SettingsButtonManger : MonoBehaviour
 {
+    [SerializeField] GameObject mainMenuButton;
     [SerializeField] AudioMixer audioMixer;
     [SerializeField] Slider slider;
 
@@ -28,6 +29,11 @@ public class SettingsButtonManger : MonoBehaviour
         float volume = 0.0f;
         audioMixer.GetFloat("volume", out volume);
         slider.value = volume;
+
+        if (manager.GetLastScene() != "MainMenu")
+        {
+            mainMenuButton.SetActive(true);
+        }
     }
 
     public void OnReturnGamePress()
@@ -41,4 +47,15 @@ public class SettingsButtonManger : MonoBehaviour
         onExitSettings?.Invoke();
         // function calls always need parenthesis 
     }
+
+    public void OnReturnToMainMenuPressed()
+    {
+        if (disabled)
+            return;
+
+        disabled = true;
+        manager.ChangeScene("MainMenu", "Change_Start");
+        DataManager.ResetData();
+    }
 }
+

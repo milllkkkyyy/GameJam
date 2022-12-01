@@ -41,6 +41,7 @@ public class HNGameLost : MonoBehaviour
         {
             if (!won)
             {
+                DataManager.inputEnabled = false;
                 gameObject.transform.rotation = Quaternion.Euler(0.0f, 0.0f, -45f);
                 DataManager.FailedGame(SceneManager.GetActiveScene().name);
                 onPlayerLoss?.Invoke();

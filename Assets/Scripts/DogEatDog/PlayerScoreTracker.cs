@@ -7,13 +7,13 @@ using UnityEngine.UI;
 public class PlayerScoreTracker : MonoBehaviour
 {
     //public int score = 0;
-    public TextMeshProUGUI score;
+    public TextMesh score;
     public static int amountEaten;
     
 
     private void Start()
     {
-        score = GetComponent<TextMeshProUGUI>();
+        score = GetComponent<TextMesh>();
         
     }
 
@@ -23,7 +23,7 @@ public class PlayerScoreTracker : MonoBehaviour
     }
     public void SetScore(int newScore)
     {
-        score.SetText(newScore.ToString());
+        score.text = newScore.ToString();
     }
     
 }

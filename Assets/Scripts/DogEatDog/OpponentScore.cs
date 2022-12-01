@@ -5,21 +5,16 @@ using UnityEngine;
 
 public class OpponentScore : MonoBehaviour
 {
-    
-    
-    
-
-    public TextMeshProUGUI score;
-    
+    public TextMesh score;    
 
     void Start()
     {
-        score = GetComponent<TextMeshProUGUI>();
+        score = GetComponent<TextMesh>();
 
     }
     public void SetScore(int newScore)
     {
-        score.SetText(newScore.ToString());
+        score.text = newScore.ToString();
     }
 
 
