@@ -72,11 +72,11 @@ public class CloudManager : MonoBehaviour
         {
             case 1:
                 cloudAmount = 3;
-                boundary = 10f;
+                boundary = 20f;
                 break;
             case 2:
                 cloudAmount = 6;
-                boundary = 20f;
+                boundary = 25f;
                 break;
             case 3:
                 cloudAmount = 10;

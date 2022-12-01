@@ -44,7 +44,7 @@ public class BullbozerController : MonoBehaviour
                 bulldozerSpeed = 20f;
                 break;
             case 3:
-                bulldozerSpeed = 20f;
+                bulldozerSpeed = 30f;
                 break;
         }
     }
