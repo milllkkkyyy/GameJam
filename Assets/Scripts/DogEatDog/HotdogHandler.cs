@@ -12,6 +12,7 @@ using UnityEngine.Windows;
 
 public class HotdogHandler : MonoBehaviour
 {
+    private bool finishGame = false;
     [SerializeField] GameObject hotdogGO;
     [SerializeField] Transform spawnLocation;
     Hotdog hotdog;
@@ -28,8 +29,8 @@ public class HotdogHandler : MonoBehaviour
     //Sounds
     [SerializeField] AudioSource eaten;
     [SerializeField] AudioSource bopbop;
-    private bool finishGame = false;
-    
+    [SerializeField] AudioSource music;
+
 
 
 
@@ -43,6 +44,7 @@ public class HotdogHandler : MonoBehaviour
             DogMinigame.PlayerHotDogHandlerData data = DataManager.dog.GetPlayerHotDogHandler();
             time.currentTime = data.GetCurrentTime();
             amountEaten = data.GetAmountEaten();
+            music.time = data.GetMusicTime();
         }
 
         winText.text = " ";
@@ -150,6 +152,7 @@ public class HotdogHandler : MonoBehaviour
         DogMinigame.PlayerHotDogHandlerData data = new DogMinigame.PlayerHotDogHandlerData();
         data.SetAmountEaten(amountEaten);
         data.SetCurrentTimer(time.currentTime);
+        data.SetMusicTime(music.time);
         DataManager.dog.SetPlayerHotDogHandler(data);
     }
 
