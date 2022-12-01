@@ -29,6 +29,11 @@ public class Hotdog : MonoBehaviour
     public Sprite halfDog;
     public Sprite quarterDog;
 
+    //sounds
+    [SerializeField] AudioSource munch;
+    //[SerializeField] AudioSource eaten;
+    [SerializeField] AudioSource burp;
+
 
     private void Awake()
     {
@@ -112,6 +117,7 @@ public class Hotdog : MonoBehaviour
     void Bite()
     {
         currentBites += 1;
+        munch.Play();
         if (firstBite == false)
         {
             firstBite = true;
@@ -162,7 +168,7 @@ public class Hotdog : MonoBehaviour
 
     private void Burp()
     {
-
+        burp.Play();
         HotDogButtonValue.Burp();
         StartCoroutine(BurpWait());
         //isBurping = true;

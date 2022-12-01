@@ -23,6 +23,10 @@ public class Opponent : MonoBehaviour
     GameObject clone;
     [SerializeField] OpponentScore oponnentScoreTracker;
     public TextMeshProUGUI opponentBurp;
+    //sounds
+    [SerializeField] AudioSource munch;
+    [SerializeField] AudioSource eaten;
+    [SerializeField] AudioSource burp;
 
 
 
@@ -99,6 +103,7 @@ public class Opponent : MonoBehaviour
         {
             //will this work???
            hotdog.Bite();
+            munch.Play();
             CheckIfEaten(); 
         }
         else
@@ -110,6 +115,7 @@ public class Opponent : MonoBehaviour
 
     private void Burp()
     {
+        burp.Play();
         StartCoroutine(BurpWait());
     }
 
@@ -119,6 +125,7 @@ public class Opponent : MonoBehaviour
         {
             DestroyHotdog();
             amountEaten++;
+            eaten.Play();
             oponnentScoreTracker.SetScore(amountEaten);
         }
     }
