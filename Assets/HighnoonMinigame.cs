@@ -9,6 +9,7 @@ public class HighnoonMinigame
     {
         Vector3 position;
         Quaternion rotation;
+        float rotationInSeconds;
         float speed;
 
         public void SaveTransform(Transform transform)
@@ -21,6 +22,16 @@ public class HighnoonMinigame
         {
             transform.position = position;
             transform.rotation = rotation;
+        }
+
+        public void SetRotationInSeconds(float rotation)
+        {
+            rotationInSeconds = rotation;
+        }
+
+        public float GetRotationInSeconds()
+        {
+            return rotationInSeconds;
         }
 
         public void SetSpeed(float speed)

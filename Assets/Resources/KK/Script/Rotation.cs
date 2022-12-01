@@ -29,6 +29,7 @@ public class Rotation : MonoBehaviour
             // get the data from the pointer 
             HighnoonMinigame.Pointer pointer = DataManager.high.GetPointer();
             pointer.LoadTransform(transform);
+            degreesPerSecond = pointer.GetRotationInSeconds();
             speed = pointer.GetSpeed();
         }
         else
@@ -75,6 +76,7 @@ public class Rotation : MonoBehaviour
         HighnoonMinigame.Pointer pointer = new HighnoonMinigame.Pointer();
         pointer.SaveTransform(transform);
         pointer.SetSpeed(speed);
+        pointer.SetRotationInSeconds(degreesPerSecond);
         DataManager.high.SetPointer(pointer);
     }
 
