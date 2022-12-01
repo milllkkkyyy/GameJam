@@ -93,6 +93,7 @@ public class SkyMinigame
     public class CloudManagerData
     {
         float boundary;
+        float musicTime;
 
         public void SetBoundary(float boundary)
         {
@@ -102,6 +103,16 @@ public class SkyMinigame
         public float GetBoundary()
         {
             return boundary;
+        }
+
+        public void SetMusicTime(float time)
+        {
+            musicTime = time;
+        }
+
+        public float GetMusicTime()
+        {
+            return musicTime;
         }
     }
 

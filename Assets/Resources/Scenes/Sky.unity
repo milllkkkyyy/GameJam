@@ -812,6 +812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cloud: {fileID: 8488797390128299331, guid: 57f0a195b7bc64a918e4ceb5d3bd27ff, type: 3}
+  music: {fileID: 1140439472}
 --- !u!1 &1140439471
 GameObject:
   m_ObjectHideFlags: 0

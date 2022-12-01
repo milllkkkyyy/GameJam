@@ -1295,6 +1295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64f3e14fa6a688941b7dd7e318fd9d23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  music: {fileID: 1731187016}
   playerScore: {fileID: 2005770264}
 --- !u!114 &2005770264
 MonoBehaviour:
