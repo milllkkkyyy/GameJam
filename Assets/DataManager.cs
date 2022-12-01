@@ -18,6 +18,8 @@ public static class DataManager
 
     private static bool increasingDifficulty = false;
 
+    public static bool inputEnabled = true;
+
     public static void IncreaseDifficulty()
     {
         /// increase the difficulty

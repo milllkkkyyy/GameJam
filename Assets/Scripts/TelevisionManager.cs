@@ -14,7 +14,7 @@ public class TelevisionManager : MonoBehaviour
 
     // Transition related variables
 
-    string[] minigames = new string[] { "KK" };
+    string[] minigames = new string[] { "KK", "Sky"};
 
     string last_scene = "";
 
@@ -45,18 +45,20 @@ public class TelevisionManager : MonoBehaviour
 
     private void Start()
     {
-        delayGameChangeTimerCap = Random.Range(50, 100);
+        delayGameChangeTimerCap = Random.Range(5, 10);
     }
 
 
     private void OnEnable()
     {
         DataManager.onDifficultySwitch += HandleDifficultySwitch;
+        TelevisionManagerInput.onEnterSettings += HandleSettingsSwitch;
     }
 
     private void OnDisable()
     {
         DataManager.onDifficultySwitch -= HandleDifficultySwitch;
+        TelevisionManagerInput.onEnterSettings -= HandleSettingsSwitch;
     }
 
     private void Update()
@@ -64,7 +66,13 @@ public class TelevisionManager : MonoBehaviour
         if (GetCurrentScene() == "MainMenu" || GetCurrentScene() == "Settings")
             return;
 
-       // HandleSwitchGame();
+       HandleSwitchGame();
+    }
+
+    private void HandleSettingsSwitch()
+    {
+        onGameChange?.Invoke();
+        ChangeScene("Settings", "Change_Start");
     }
 
     private void HandleDifficultySwitch()
@@ -80,7 +88,7 @@ public class TelevisionManager : MonoBehaviour
         if (delayGameChangeTimer > delayGameChangeTimerCap)
         {
             delayGameChangeTimer = 0.0f;
-            delayGameChangeTimerCap = Random.Range(50, 100);
+            delayGameChangeTimerCap = Random.Range(5, 10);
             onGameChange?.Invoke();
             ChangeToRandomMinigame();
         }
@@ -126,6 +134,7 @@ public class TelevisionManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(transitionTime);
         // Load scene
         last_scene = SceneManager.GetActiveScene().name;
+        DataManager.inputEnabled = true;
         SceneManager.LoadScene(scene_name);
     }
 

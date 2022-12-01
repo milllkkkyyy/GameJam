@@ -393,6 +393,34 @@ public partial class @Minigames : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""TelevisionManager"",
+            ""id"": ""163017b9-ddf3-4a16-a80e-53528ef1145c"",
+            ""actions"": [
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""72443f74-adc2-4184-970e-d2935b68987a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""76afaab7-9bd6-46ee-880f-4d4968073a07"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -411,6 +439,9 @@ public partial class @Minigames : IInputActionCollection2, IDisposable
         m_ClearSky_Move = m_ClearSky.FindAction("Move", throwIfNotFound: true);
         m_ClearSky_Rotate = m_ClearSky.FindAction("Rotate", throwIfNotFound: true);
         m_ClearSky_Zoom = m_ClearSky.FindAction("Zoom", throwIfNotFound: true);
+        // TelevisionManager
+        m_TelevisionManager = asset.FindActionMap("TelevisionManager", throwIfNotFound: true);
+        m_TelevisionManager_Pause = m_TelevisionManager.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -605,6 +636,39 @@ public partial class @Minigames : IInputActionCollection2, IDisposable
         }
     }
     public ClearSkyActions @ClearSky => new ClearSkyActions(this);
+
+    // TelevisionManager
+    private readonly InputActionMap m_TelevisionManager;
+    private ITelevisionManagerActions m_TelevisionManagerActionsCallbackInterface;
+    private readonly InputAction m_TelevisionManager_Pause;
+    public struct TelevisionManagerActions
+    {
+        private @Minigames m_Wrapper;
+        public TelevisionManagerActions(@Minigames wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Pause => m_Wrapper.m_TelevisionManager_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_TelevisionManager; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(TelevisionManagerActions set) { return set.Get(); }
+        public void SetCallbacks(ITelevisionManagerActions instance)
+        {
+            if (m_Wrapper.m_TelevisionManagerActionsCallbackInterface != null)
+            {
+                @Pause.started -= m_Wrapper.m_TelevisionManagerActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_TelevisionManagerActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_TelevisionManagerActionsCallbackInterface.OnPause;
+            }
+            m_Wrapper.m_TelevisionManagerActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
+            }
+        }
+    }
+    public TelevisionManagerActions @TelevisionManager => new TelevisionManagerActions(this);
     public interface IHotdogActions
     {
         void OnButton1(InputAction.CallbackContext context);
@@ -621,5 +685,9 @@ public partial class @Minigames : IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnRotate(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
+    }
+    public interface ITelevisionManagerActions
+    {
+        void OnPause(InputAction.CallbackContext context);
     }
 }

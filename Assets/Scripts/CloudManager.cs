@@ -7,8 +7,7 @@ public class CloudManager : MonoBehaviour
     [SerializeField] GameObject cloud;
 
     public static event System.Action<Vector2> onCloudCreation;
-    public static event System.Action<float, float, float, float> onNewRound; /// imagine this as creating an "void onNewRound(float a, float b)"
-    public static event System.Action onRoundEnd; // imagine this as creating a "void onRoundEnd()"
+    public static event System.Action<float, float, float> onNewRound; /// imagine this as creating an "void onNewRound(float a, float b)"
     public static event System.Action loadPlayerData;
 
     float boundary = 20f;
@@ -34,7 +33,7 @@ public class CloudManager : MonoBehaviour
             // load ui data
             SkyMinigame.UIData uiData = DataManager.sky.GetUIData();
             float cloudAmount = uiData.GetCurrentScore() + cloudData.Count;
-            onNewRound?.Invoke(cloudAmount, uiData.GetTime(), uiData.GetCurrentScore(), uiData.GetTotalScore());
+            onNewRound?.Invoke(cloudAmount, uiData.GetTime(), uiData.GetCurrentScore());
 
             loadPlayerData?.Invoke();
         }
@@ -42,7 +41,6 @@ public class CloudManager : MonoBehaviour
         {
             NewRound();
         }
-        DataManager.sky.ResetData();
     }
 
     private void OnEnable()
@@ -64,8 +62,6 @@ public class CloudManager : MonoBehaviour
 
     private void NewRound()
     {
-        onRoundEnd?.Invoke();
-
         int cloudAmount = 0;
         switch (DataManager.GetDifficulty())
         {
@@ -83,7 +79,7 @@ public class CloudManager : MonoBehaviour
                 break;
         }
         CreateRound(cloudAmount);
-        onNewRound?.Invoke(cloudAmount * cloudAmount, 30f, 0, 0);
+        onNewRound?.Invoke(cloudAmount * cloudAmount, 30f, 0);
     }
 
     /// <summary>

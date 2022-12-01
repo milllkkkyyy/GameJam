@@ -68,7 +68,6 @@ public class SkyMinigame
     {
         float time;
         float currentScore;
-        float totalScore;
 
         public void SetTime(float t)
         {
@@ -80,11 +79,6 @@ public class SkyMinigame
             this.currentScore = currentScore;
         }
 
-        public void SetTotalScore(float totalScore)
-        {
-            this.totalScore = totalScore;
-        }
-
         public float GetTime()
         {
             return time;
@@ -93,11 +87,6 @@ public class SkyMinigame
         public float GetCurrentScore()
         {
             return currentScore;
-        }
-
-        public float GetTotalScore()
-        {
-            return totalScore;
         }
     }
 

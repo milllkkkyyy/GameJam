@@ -75,6 +75,7 @@ public class Rotation : MonoBehaviour
         HighnoonMinigame.Pointer pointer = new HighnoonMinigame.Pointer();
         pointer.SaveTransform(transform);
         pointer.SetSpeed(speed);
+        DataManager.high.SetPointer(pointer);
     }
 
 }

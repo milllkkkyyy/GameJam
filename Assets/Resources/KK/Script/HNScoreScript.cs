@@ -69,6 +69,7 @@ public class HNScoreScript : MonoBehaviour
         // we handle this here so it is only called once.
         if (scoreValue == finalScore) // If score value is 12, game is completed
         {
+            DataManager.inputEnabled = false;
             playerScore.text = "You Won!"; // change text
             onHighNoon?.Invoke(); // stop the rotation of the pointer
         }
@@ -87,7 +88,7 @@ public class HNScoreScript : MonoBehaviour
         else
         {
             // this is a way to create a timer
-            if (uiTimer >= uiTimerCap && !finishedGame) // timer >= 15 seconds, finished timer
+            if (uiTimer >= uiTimerCap && !finishedGame)
             {
                 uiTimer = 0.0f;
                 DataManager.IncreaseDifficulty();

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dissolve : MonoBehaviour
+public class Cloud : MonoBehaviour
 {
     public static event System.Action onCloudDeath;
     SpriteRenderer spriteRenderer;
@@ -16,14 +16,12 @@ public class Dissolve : MonoBehaviour
     void OnEnable()
     {
         CloudManager.onCloudCreation += InitializeCloud;
-        CloudManager.onRoundEnd += DeleteCloud;
         TelevisionManager.onGameChange += SaveCloud;
     }
 
     void OnDisable()
     {
         CloudManager.onCloudCreation -= InitializeCloud;
-        CloudManager.onRoundEnd -= DeleteCloud;
         TelevisionManager.onGameChange -= SaveCloud;
     }
 
