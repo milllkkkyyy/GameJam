@@ -47,20 +47,20 @@ public class Opponent : MonoBehaviour
         switch (DataManager.GetDifficulty())
         {
             case 1:
-                biteSpeed = .3f;
-                burpChance = 10;
+                biteSpeed = .5f;
+                burpChance = 15;
                 break;
             case 2:
-                biteSpeed = 0.2f;
+                biteSpeed = 0.4f;
                 burpChance = 30;
                 break;
             case 3:
-                biteSpeed = 0.2f;
-                burpChance = 80;
+                biteSpeed = 0.3f;
+                burpChance = 50;
                 break;
             default:
-                biteSpeed = 0.2f;
-                burpChance = 80;
+                biteSpeed = 0.3f;
+                burpChance = 50;
                 break;
         }
         CreateHotdog();
