@@ -28,6 +28,7 @@ public class HotdogHandler : MonoBehaviour
     //Sounds
     [SerializeField] AudioSource eaten;
     [SerializeField] AudioSource bopbop;
+    private bool finishGame = false;
     
 
 
@@ -82,7 +83,7 @@ public class HotdogHandler : MonoBehaviour
             deletedHotDog = true;
             displayedButton.text = " ";
         }
-        if(time.isActive() == false)
+        if(time.isActive() == false && !finishGame)
         {
             displayedButton.text = " ";
             EndGame();
@@ -119,6 +120,7 @@ public class HotdogHandler : MonoBehaviour
     {
         if(amountEaten > opponent.getScore())
         {
+            finishGame = true;
             winText.color = Color.green;
             //player wins
             winText.text = "YOU WIN!";
@@ -129,6 +131,7 @@ public class HotdogHandler : MonoBehaviour
             winText.color = Color.red;
             winText.text = "YOU LOSE";
             DataManager.FailedGame(SceneManager.GetActiveScene().name);
+            ResetGame();
 
         }
         else
@@ -137,7 +140,9 @@ public class HotdogHandler : MonoBehaviour
             winText.color = Color.red;
             winText.text = "TIE GAME";
             DataManager.FailedGame(SceneManager.GetActiveScene().name);
+            ResetGame();
         }
+        
     }
 
     void SaveHandlerInformation()
@@ -150,6 +155,8 @@ public class HotdogHandler : MonoBehaviour
 
     public void ResetGame()
     {
+        DataManager.dog = new DogMinigame();
+        finishGame = false;
         amountEaten = 0;
         time.RestartTime();
         deletedHotDog = false;

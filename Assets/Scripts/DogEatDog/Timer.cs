@@ -49,7 +49,7 @@ public class Timer : MonoBehaviour
         {
             startingTime = 15;
         }
-        else if (DataManager.GetDifficulty() == 2)
+        else if (DataManager.GetDifficulty() == 3)
         {
             startingTime = 10;
         }
