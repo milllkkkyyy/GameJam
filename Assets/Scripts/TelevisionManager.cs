@@ -53,12 +53,14 @@ public class TelevisionManager : MonoBehaviour
     {
         DataManager.onDifficultySwitch += HandleDifficultySwitch;
         TelevisionManagerInput.onEnterSettings += HandleSettingsSwitch;
+        DataManager.onFinishedGame += FinishGame;
     }
 
     private void OnDisable()
     {
         DataManager.onDifficultySwitch -= HandleDifficultySwitch;
         TelevisionManagerInput.onEnterSettings -= HandleSettingsSwitch;
+        DataManager.onFinishedGame -= FinishGame;
     }
 
     private void Update()
@@ -67,6 +69,11 @@ public class TelevisionManager : MonoBehaviour
             return;
 
        HandleSwitchGame();
+    }
+
+    private void FinishGame()
+    {
+        ChangeScene("Credits", "Change_Start");
     }
 
     private void HandleSettingsSwitch()

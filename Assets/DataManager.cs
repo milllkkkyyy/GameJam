@@ -6,6 +6,8 @@ public static class DataManager
 {
     public static event System.Action onDifficultySwitch;
 
+    public static event System.Action onFinishedGame;
+
     public static SkyMinigame sky = new SkyMinigame();
 
     public static HighnoonMinigame high = new HighnoonMinigame();
@@ -26,6 +28,12 @@ public static class DataManager
     {
         /// increase the difficulty
         difficulty++;
+
+        if (difficulty > 3)
+        {
+            onFinishedGame?.Invoke();
+            return;
+        }
 
         increasingDifficulty = true;
 
