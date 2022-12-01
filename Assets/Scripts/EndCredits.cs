@@ -5,14 +5,15 @@ using UnityEngine;
 
 public class EndCredits : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    RectTransform rectTransform;
+    private void Start()
     {
-        
+        //Fetch the RectTransform from the GameObject
+        rectTransform = GetComponent<RectTransform>();
     }
     void Update()
     {
-        if (transform.position.y >= 100)
+        if (rectTransform.position.y >= 460)
         {
             //return to menu
             TelevisionManager.instance.ChangeScene("MainMenu", "Change_Start");
