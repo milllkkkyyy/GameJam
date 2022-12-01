@@ -11,7 +11,6 @@ using UnityEngine.Windows;
 
 public class HotdogHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
     [SerializeField] GameObject hotdogGO;
     [SerializeField] Transform spawnLocation;
     Hotdog hotdog;
@@ -25,6 +24,8 @@ public class HotdogHandler : MonoBehaviour
     public TextMeshProUGUI displayedButton;
     [SerializeField] Opponent opponent;
     [SerializeField] TextMeshProUGUI winText;
+    //Sounds
+    [SerializeField] AudioSource eaten;
 
 
 
@@ -47,6 +48,7 @@ public class HotdogHandler : MonoBehaviour
         if (hotdog.IsFinished())
         {
             amountEaten++;
+            eaten.Play();
            // PlayerScoreTracker.amountEaten = amountEaten;
             playerScoreTracker.SetScore(amountEaten);
             //why doesnt this working????
