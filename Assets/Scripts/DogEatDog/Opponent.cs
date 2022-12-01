@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Opponent : MonoBehaviour
@@ -21,6 +22,8 @@ public class Opponent : MonoBehaviour
     OpponentHotdog hotdog;
     GameObject clone;
     [SerializeField] OpponentScore oponnentScoreTracker;
+    public TextMeshProUGUI opponentBurp;
+
 
 
     private void Start()
@@ -28,14 +31,15 @@ public class Opponent : MonoBehaviour
         //coroutine loop which ends if the timer is 0 or hasnt begun.
 
         //CreateHotdog();
+        opponentBurp = GameObject.Find("OpponentBurpText").GetComponent<TextMeshProUGUI>();
         switch (DataManager.GetDifficulty())
         {
             case 1:
-                biteSpeed = 1f;
+                biteSpeed = .3f;
                 burpChance = 10;
                 break;
             case 2:
-                biteSpeed = 0.5f;
+                biteSpeed = 0.2f;
                 burpChance = 30;
                 break;
             case 3:
@@ -121,11 +125,18 @@ public class Opponent : MonoBehaviour
 
     IEnumerator BurpWait()
     {
+        opponentBurp.text = "BURP!";
         isBurping = true;
         yield return new WaitForSeconds(1);
         isBurping = false;
+        opponentBurp.text = " ";
     }
 
     //win datamanager.win() 
+
+    public int getScore()
+    {
+        return amountEaten;
+    }
 
 }

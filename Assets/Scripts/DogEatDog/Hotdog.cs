@@ -22,6 +22,14 @@ public class Hotdog : MonoBehaviour
     //burptext
     public TextMeshProUGUI playerBurp;
 
+    //Hotdog Images
+    public Sprite fullDog;
+    SpriteRenderer spriteRenderer;
+    public Sprite threeQuarterDog;
+    public Sprite halfDog;
+    public Sprite quarterDog;
+
+
     private void Awake()
     {
         input = new Minigames();
@@ -32,6 +40,9 @@ public class Hotdog : MonoBehaviour
 
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = fullDog;
+        
 
         playerBurp = GameObject.Find("BurpText").GetComponent<TextMeshProUGUI>();
 
@@ -105,11 +116,34 @@ public class Hotdog : MonoBehaviour
         {
             firstBite = true;
             //transform.position = new Vector2(-5f, 1);
-            speed = 3f;
+            speed = 5f;
             Debug.Log("FirstBite");
             //transform.position = endPos.position;
         }
         HotDogButtonValue.BitePress();
+        UpdateSprite();
+
+    }
+    public void UpdateSprite()
+    {
+        float percentEaten = (float)currentBites / (float)maxBites;
+        Debug.Log(percentEaten);
+        if(percentEaten <= .25f)
+        {
+            //set image to 1
+            spriteRenderer.sprite = threeQuarterDog;
+        }else if(percentEaten <=.50f )
+        {
+            //set image to 2
+            spriteRenderer.sprite = halfDog;
+        }
+        else if (percentEaten <= .75f )
+        {
+            //set image to 3
+            spriteRenderer.sprite =quarterDog;
+        }
+
+
     }
 
     public bool IsFinished()

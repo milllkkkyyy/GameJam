@@ -23,13 +23,18 @@ public class HotdogHandler : MonoBehaviour
     public bool deletedHotDog = false;
     [SerializeField] Timer time;
     public TextMeshProUGUI displayedButton;
+    [SerializeField] Opponent opponent;
+    [SerializeField] TextMeshProUGUI winText;
+
+
 
 
 
     void Start()
     {
-       
-        
+
+        winText.text = " ";
+        winText.color = Color.gray;
         CreateHotdog();
         
 
@@ -60,6 +65,7 @@ public class HotdogHandler : MonoBehaviour
         if(time.isActive() == false)
         {
             displayedButton.text = " ";
+            endGame();
         }
         
     }
@@ -86,5 +92,27 @@ public class HotdogHandler : MonoBehaviour
     public int GetAmountEaten()
     {
         return amountEaten;
+    }
+
+    private void endGame()
+    {
+        if(amountEaten > opponent.getScore())
+        {
+            winText.color = Color.green;
+            //player wins
+            winText.text = "YOU WIN!";
+        }else if(amountEaten < opponent.getScore())
+        {
+            //opponent wins
+            winText.color = Color.red;
+            winText.text = "YOU LOSE";
+
+        }
+        else
+        {
+            //tie game
+            winText.color = Color.gray;
+            winText.text = "TIE GAME";
+        }
     }
 }
