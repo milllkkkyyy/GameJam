@@ -2,38 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ClearSkyUI : MonoBehaviour
 {
     [SerializeField] GameObject finishedView;
-    [SerializeField] TextMeshProUGUI scoreLabel;
+    [SerializeField] GameObject timerView;
+    [SerializeField] GameObject leftView;
     [SerializeField] TextMeshProUGUI timeLabel;
     [SerializeField] TextMeshProUGUI amountLeftLabel;
 
-    public static event System.Action<bool> onFinishedRound;
-
     float amountOfClouds = 0;
-    float totalScore = 0;
     float currentScore = 0;
 
     float timeLeftInSeconds = 5f;
     bool timerOn = false;
 
-    float timeToDisplayView = 2f;
+    float timeToDisplayView = 1f;
     float displayViewTime = 0f;
 
-    bool finishedGame = false;
+    bool won = false;
+    bool startingTransition = false;
 
     private void OnEnable()
     {
-        Dissolve.onCloudDeath += IncreaseScore;
+        Cloud.onCloudDeath += IncreaseScore;
         CloudManager.onNewRound += InitializeUI;
         TelevisionManager.onGameChange += SaveUIInformation;
     }
 
     private void OnDisable()
     {
-        Dissolve.onCloudDeath -= IncreaseScore;
+        Cloud.onCloudDeath -= IncreaseScore;
         CloudManager.onNewRound -= InitializeUI;
         TelevisionManager.onGameChange -= SaveUIInformation;
     }
@@ -43,7 +43,6 @@ public class ClearSkyUI : MonoBehaviour
         SkyMinigame.UIData data = new SkyMinigame.UIData();
         data.SetCurrentScore(currentScore);
         data.SetTime(timeLeftInSeconds);
-        data.SetTotalScore(totalScore);
         DataManager.sky.SetUIData(data);
     }
 
@@ -52,13 +51,12 @@ public class ClearSkyUI : MonoBehaviour
     /// </summary>
     /// <param name="amountOfClouds"></param>
     /// <param name="timeInSeconds"></param>
-    private void InitializeUI(float amountOfClouds, float timeInSeconds, float currentScore, float totalScore)
+    private void InitializeUI(float amountOfClouds, float timeInSeconds, float currentScore)
     {
         this.currentScore = currentScore;
-        this.totalScore = totalScore;
         this.amountOfClouds = amountOfClouds;
         timeLeftInSeconds = timeInSeconds;
-        finishedGame = false;
+        won = false;
         timerOn = true;
     }
 
@@ -83,13 +81,23 @@ public class ClearSkyUI : MonoBehaviour
 
     void UpdateDisplayView()
     {
-        if (timeLeftInSeconds <= 0 || finishedGame)
+        if (startingTransition)
+            return;
+
+        if (timeLeftInSeconds <= 0 || won)
         {
             if (displayViewTime > timeToDisplayView)
             {
                 displayViewTime = 0;
-                finishedView.SetActive(false);
-                RebootGame();
+                if (won)
+                {
+                    DataManager.IncreaseDifficulty();
+                }
+                else
+                {
+                    DataManager.FailedGame(SceneManager.GetActiveScene().name);
+                }
+                startingTransition = true;
             }
             displayViewTime += Time.deltaTime;
         }
@@ -97,21 +105,13 @@ public class ClearSkyUI : MonoBehaviour
 
     void HasFinishedGame()
     {
-        if (currentScore < amountOfClouds)
+        if (currentScore != amountOfClouds)
             return;
 
         // completed game via score
-        finishedGame = true;
+        won = true;
         timerOn = false;
-        UpdateDispalyViewText(finishedGame);
-    }
-
-    void RebootGame()
-    {
-        if (finishedGame)
-            totalScore += currentScore;
-        currentScore = 0;
-        onFinishedRound?.Invoke(finishedGame);
+        UpdateDispalyViewText(won);
     }
 
     void UpdateTimer()
@@ -127,21 +127,25 @@ public class ClearSkyUI : MonoBehaviour
         {
             timeLeftInSeconds = 0;
             timerOn = false;
-            finishedGame = false;
-            UpdateDispalyViewText(finishedGame);
+            won = false;
+            UpdateDispalyViewText(won);
         }
     }
 
-    void UpdateDispalyViewText(bool finishedGame)
+    void UpdateDispalyViewText(bool won)
     {
-        string text = finishedGame ? "CLEARED SKY!" : "TIMES UP!";
+        string text = won ? "CLEARED SKY!" : "TIMES UP!";
         finishedView.GetComponent<TextMeshProUGUI>().text = text;
         finishedView.SetActive(true);
+        leftView.SetActive(false);
+        timerView.SetActive(false);
     }
 
     void UpdateUI()
     {
-        scoreLabel.text = "Score: " + totalScore;
+        if (!leftView.activeSelf && !timerView.activeSelf)
+            return;
+
         amountLeftLabel.text = "Clouds Left: " + (amountOfClouds - currentScore);
         float minutes = Mathf.FloorToInt(timeLeftInSeconds / 60);
         float seconds = Mathf.FloorToInt(timeLeftInSeconds % 60);

@@ -11,7 +11,7 @@ public class MainMenuButtonManager : MonoBehaviour
     
     void Start() 
     {
-        GameObject tv = GameObject.Find("TelevistionManager(Clone)");
+        GameObject tv = GameObject.Find("TelevisionManager(Clone)");
 
         if (tv == null)
         {

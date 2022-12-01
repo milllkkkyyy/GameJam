@@ -371,6 +371,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "TelevisionManager",
+            "id": "163017b9-ddf3-4a16-a80e-53528ef1145c",
+            "actions": [
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "72443f74-adc2-4184-970e-d2935b68987a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "76afaab7-9bd6-46ee-880f-4d4968073a07",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

@@ -16,11 +16,8 @@ public class BullbozerController : MonoBehaviour
 
     float bulldozerSpeed = 10f;
 
-    float intensityMultiplier = 1.0f;
-
     private void OnEnable()
     {
-        CloudManager.onRoundEnd += Reset;
         TelevisionManager.onGameChange += SavePlayerInformation;
         CloudManager.loadPlayerData += LoadPlayerInformation;
         input.Enable();
@@ -28,7 +25,6 @@ public class BullbozerController : MonoBehaviour
 
     private void OnDisable()
     {
-        CloudManager.onRoundEnd -= Reset;
         TelevisionManager.onGameChange -= SavePlayerInformation;
         CloudManager.loadPlayerData -= LoadPlayerInformation;
         input.Disable();
@@ -38,6 +34,19 @@ public class BullbozerController : MonoBehaviour
     {
         input = new Minigames();
         rb = GetComponent<Rigidbody2D>();
+
+        switch (DataManager.GetDifficulty())
+        {
+            case 1:
+                bulldozerSpeed = 10f;
+                break;
+            case 2:
+                bulldozerSpeed = 20f;
+                break;
+            case 3:
+                bulldozerSpeed = 20f;
+                break;
+        }
     }
 
     void Update()
@@ -77,18 +86,12 @@ public class BullbozerController : MonoBehaviour
         float rotation = -inputRotate * bulldozerRotation;
         transform.Rotate(Vector3.forward * rotation);
 
-        rb.velocity = transform.right * inputMove * bulldozerSpeed * intensityMultiplier;
+        rb.velocity = transform.right * inputMove * bulldozerSpeed;
     }
 
     private void Reset()
     {
         transform.position = Vector2.zero;
         transform.rotation = Quaternion.Euler(Vector3.zero);
-    }
-
-    private void ChangingIntenityKnob(int intensity)
-    {
-        intensityMultiplier = 1.0f;
-        //fix this
     }
 }
