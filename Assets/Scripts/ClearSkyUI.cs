@@ -147,9 +147,7 @@ public class ClearSkyUI : MonoBehaviour
             return;
 
         amountLeftLabel.text = "Clouds Left: " + (amountOfClouds - currentScore);
-        float minutes = Mathf.FloorToInt(timeLeftInSeconds / 60);
-        float seconds = Mathf.FloorToInt(timeLeftInSeconds % 60);
-        timeLabel.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        timeLabel.text = ((int)timeLeftInSeconds).ToString();
     }
 
 }
