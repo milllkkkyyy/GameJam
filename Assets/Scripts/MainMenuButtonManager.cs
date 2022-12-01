@@ -43,13 +43,23 @@ public class MainMenuButtonManager : MonoBehaviour
         manager.ChangeScene("Settings", "Change_Start");
     }
 
+    public void OnCreditsPress()
+    {
+        if (disabled)
+            return;
+
+        disabled = true;
+        Debug.Log("Credits Button Pressed.");
+        manager.ChangeScene("Credits", "Change_Start");
+    }
+
     public void OnPlayPress()
     {
         if (disabled)
             return;
 
         disabled = true;
-        Debug.Log("Settings Button Pressed.");
+        Debug.Log("Play Button Pressed.");
         manager.ChangeToRandomMinigame();
     }
 }
