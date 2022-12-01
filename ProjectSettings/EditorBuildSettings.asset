@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Resources/Scenes/KK.unity
     guid: 7161a80637177c04282d63520c248490
+  - enabled: 1
+    path: Assets/Resources/Scenes/ETHAN.unity
+    guid: 647d4f9675af8b047a3eddded90ce943
   m_configObjects: {}

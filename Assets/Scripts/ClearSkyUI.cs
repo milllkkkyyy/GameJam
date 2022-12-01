@@ -100,15 +100,9 @@ public class ClearSkyUI : MonoBehaviour
             if (displayViewTime > timeToDisplayView)
             {
                 displayViewTime = 0;
-                if (won)
-                {
-                    DataManager.IncreaseDifficulty();
-                    startingTransition = true;
-                }
-                else
+                if (!won)
                 {
                     onResetRound?.Invoke();
-                    DataManager.FailedGame(SceneManager.GetActiveScene().name);
                 }
             }
             displayViewTime += Time.deltaTime;
@@ -151,6 +145,16 @@ public class ClearSkyUI : MonoBehaviour
         finishedView.SetActive(true);
         leftView.SetActive(false);
         timerView.SetActive(false);
+
+        if (won)
+        {
+            DataManager.IncreaseDifficulty();
+        }
+        else
+        {
+            DataManager.sky.ResetData();
+            DataManager.FailedGame(SceneManager.GetActiveScene().name);
+        }
     }
 
     void UpdateUI()
