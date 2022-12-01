@@ -26,13 +26,16 @@ public class HotdogHandler : MonoBehaviour
     [SerializeField] TextMeshProUGUI winText;
     //Sounds
     [SerializeField] AudioSource eaten;
-
+    [SerializeField] AudioSource bopbop;
+    
 
 
 
 
     void Start()
     {
+
+        
         if (DataManager.dog.VisitedPlayerHandlerData())
         {
             DogMinigame.PlayerHotDogHandlerData data = DataManager.dog.GetPlayerHotDogHandler();
@@ -44,6 +47,7 @@ public class HotdogHandler : MonoBehaviour
         winText.color = Color.gray;
         CreateHotdog();
     }
+
 
     private void OnEnable()
     {
@@ -82,7 +86,8 @@ public class HotdogHandler : MonoBehaviour
             displayedButton.text = " ";
             EndGame();
         }
-        
+
+
     }
 
     void CreateHotdog()
