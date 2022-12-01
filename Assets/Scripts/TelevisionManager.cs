@@ -63,7 +63,7 @@ public class TelevisionManager : MonoBehaviour
 
     private void Update()
     {
-        if (GetCurrentScene() == "MainMenu" || GetCurrentScene() == "Settings")
+        if (GetCurrentScene() == "MainMenu" || GetCurrentScene() == "Settings"  || GetCurrentScene() == "Credits")
             return;
 
        HandleSwitchGame();

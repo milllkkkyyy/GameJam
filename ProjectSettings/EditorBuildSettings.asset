@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Resources/Scenes/ETHAN.unity
     guid: 647d4f9675af8b047a3eddded90ce943
+  - enabled: 1
+    path: Assets/Resources/Scenes/Credits.unity
+    guid: 232b8d2dacbc7fc4db06a15d63eb16ff
   m_configObjects: {}
