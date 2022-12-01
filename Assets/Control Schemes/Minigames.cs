@@ -406,6 +406,15 @@ public partial class @Minigames : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Continue"",
+                    ""type"": ""Button"",
+                    ""id"": ""fbab2ab1-97e7-4451-badb-32f70cf41d2b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -417,6 +426,17 @@ public partial class @Minigames : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4629a921-98c6-4a18-9827-4de9f45c077c"",
+                    ""path"": ""<Keyboard>/anyKey"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Continue"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -442,6 +462,7 @@ public partial class @Minigames : IInputActionCollection2, IDisposable
         // TelevisionManager
         m_TelevisionManager = asset.FindActionMap("TelevisionManager", throwIfNotFound: true);
         m_TelevisionManager_Pause = m_TelevisionManager.FindAction("Pause", throwIfNotFound: true);
+        m_TelevisionManager_Continue = m_TelevisionManager.FindAction("Continue", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -641,11 +662,13 @@ public partial class @Minigames : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_TelevisionManager;
     private ITelevisionManagerActions m_TelevisionManagerActionsCallbackInterface;
     private readonly InputAction m_TelevisionManager_Pause;
+    private readonly InputAction m_TelevisionManager_Continue;
     public struct TelevisionManagerActions
     {
         private @Minigames m_Wrapper;
         public TelevisionManagerActions(@Minigames wrapper) { m_Wrapper = wrapper; }
         public InputAction @Pause => m_Wrapper.m_TelevisionManager_Pause;
+        public InputAction @Continue => m_Wrapper.m_TelevisionManager_Continue;
         public InputActionMap Get() { return m_Wrapper.m_TelevisionManager; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -658,6 +681,9 @@ public partial class @Minigames : IInputActionCollection2, IDisposable
                 @Pause.started -= m_Wrapper.m_TelevisionManagerActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_TelevisionManagerActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_TelevisionManagerActionsCallbackInterface.OnPause;
+                @Continue.started -= m_Wrapper.m_TelevisionManagerActionsCallbackInterface.OnContinue;
+                @Continue.performed -= m_Wrapper.m_TelevisionManagerActionsCallbackInterface.OnContinue;
+                @Continue.canceled -= m_Wrapper.m_TelevisionManagerActionsCallbackInterface.OnContinue;
             }
             m_Wrapper.m_TelevisionManagerActionsCallbackInterface = instance;
             if (instance != null)
@@ -665,6 +691,9 @@ public partial class @Minigames : IInputActionCollection2, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @Continue.started += instance.OnContinue;
+                @Continue.performed += instance.OnContinue;
+                @Continue.canceled += instance.OnContinue;
             }
         }
     }
@@ -689,5 +718,6 @@ public partial class @Minigames : IInputActionCollection2, IDisposable
     public interface ITelevisionManagerActions
     {
         void OnPause(InputAction.CallbackContext context);
+        void OnContinue(InputAction.CallbackContext context);
     }
 }

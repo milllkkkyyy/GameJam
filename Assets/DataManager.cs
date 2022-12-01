@@ -16,6 +16,8 @@ public static class DataManager
 
     private static List<string> minigames = new List<string> { "Sky", "KK", "ETHAN" };
 
+    private static Dictionary<string,int> vistedMinigames = new Dictionary<string, int> { {"Sky", -1 }, { "KK", -1 }, { "ETHAN", -1 } };
+
     private static bool increasingDifficulty = false;
 
     public static bool inputEnabled = true;
@@ -68,5 +70,11 @@ public static class DataManager
     public static bool IncreasingDifficulty()
     {
         return increasingDifficulty;
+    }
+
+    public static bool Visited(string scene)
+    {
+        vistedMinigames[scene]++;
+        return vistedMinigames[scene] > 0;
     }
 }
