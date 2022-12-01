@@ -39,30 +39,13 @@ public class Opponent : MonoBehaviour
             DogMinigame.Opponent opponent = DataManager.dog.GetOpponent();
             amountEaten = opponent.GetAmountEaten();
         }
+        SetDifficulty();
 
         //coroutine loop which ends if the timer is 0 or hasnt begun.
 
         //CreateHotdog();
         opponentBurp = GameObject.Find("OpponentBurpText").GetComponent<TextMeshProUGUI>();
-        switch (DataManager.GetDifficulty())
-        {
-            case 1:
-                biteSpeed = .5f;
-                burpChance = 15;
-                break;
-            case 2:
-                biteSpeed = 0.4f;
-                burpChance = 30;
-                break;
-            case 3:
-                biteSpeed = 0.3f;
-                burpChance = 50;
-                break;
-            default:
-                biteSpeed = 0.3f;
-                burpChance = 50;
-                break;
-        }
+       
         CreateHotdog();
     }
 
@@ -175,6 +158,38 @@ public class Opponent : MonoBehaviour
         DogMinigame.Opponent data = new DogMinigame.Opponent();
         data.SetAmountEaten(amountEaten);
         DataManager.dog.SetOpponent(data);
+    }
+
+    public void SetDifficulty()
+    {
+        switch (DataManager.GetDifficulty())
+        {
+            case 1:
+                biteSpeed = .5f;
+                burpChance = 15;
+                break;
+            case 2:
+                biteSpeed = 0.4f;
+                burpChance = 30;
+                break;
+            case 3:
+                biteSpeed = 0.3f;
+                burpChance = 50;
+                break;
+            default:
+                biteSpeed = 0.3f;
+                burpChance = 50;
+                break;
+        }
+    }
+
+    public void ResetOponnent()
+    {
+        SetDifficulty();
+        amountEaten = 0;
+        currentTime = 0.0f;
+        isBurping=false;
+
     }
 
 }

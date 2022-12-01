@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 using UnityEngine.Windows;
@@ -121,18 +122,21 @@ public class HotdogHandler : MonoBehaviour
             winText.color = Color.green;
             //player wins
             winText.text = "YOU WIN!";
+            DataManager.IncreaseDifficulty();
         }else if(amountEaten < opponent.getScore())
         {
             //opponent wins
             winText.color = Color.red;
             winText.text = "YOU LOSE";
+            DataManager.FailedGame(SceneManager.GetActiveScene().name);
 
         }
         else
         {
             //tie game
-            winText.color = Color.gray;
+            winText.color = Color.red;
             winText.text = "TIE GAME";
+            DataManager.FailedGame(SceneManager.GetActiveScene().name);
         }
     }
 
@@ -142,5 +146,16 @@ public class HotdogHandler : MonoBehaviour
         data.SetAmountEaten(amountEaten);
         data.SetCurrentTimer(time.currentTime);
         DataManager.dog.SetPlayerHotDogHandler(data);
+    }
+
+    public void ResetGame()
+    {
+        amountEaten = 0;
+        time.RestartTime();
+        deletedHotDog = false;
+        winText.text = " ";
+        opponent.ResetOponnent();
+        CreateHotdog();
+
     }
 }

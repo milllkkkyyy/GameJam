@@ -11,9 +11,7 @@ public class Timer : MonoBehaviour
     public bool beginCountdown;
     private void Start()
     {
-        startingTime = 60;
-        currentTime = startingTime;
-        beginCountdown = true;
+       RestartTime();
 
     }
 
@@ -39,6 +37,25 @@ public class Timer : MonoBehaviour
     public bool isActive()
     {
         return beginCountdown;
+    }
+
+    public void RestartTime()
+    {
+        if (DataManager.GetDifficulty() == 1)
+        {
+            startingTime = 30;
+        }
+        else if (DataManager.GetDifficulty() == 2)
+        {
+            startingTime = 15;
+        }
+        else if (DataManager.GetDifficulty() == 2)
+        {
+            startingTime = 10;
+        }
+
+        currentTime = startingTime;
+        beginCountdown = true;
     }
 
 }
