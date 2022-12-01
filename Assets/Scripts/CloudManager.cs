@@ -9,6 +9,7 @@ public class CloudManager : MonoBehaviour
     public static event System.Action<Vector2> onCloudCreation;
     public static event System.Action<float, float, float> onNewRound; /// imagine this as creating an "void onNewRound(float a, float b)"
     public static event System.Action loadPlayerData;
+    public static event System.Action onResetData;
 
     float boundary = 20f;
 
@@ -36,6 +37,7 @@ public class CloudManager : MonoBehaviour
             onNewRound?.Invoke(cloudAmount, uiData.GetTime(), uiData.GetCurrentScore());
 
             loadPlayerData?.Invoke();
+            DataManager.sky.ResetData();
         }
         else
         {
@@ -46,11 +48,13 @@ public class CloudManager : MonoBehaviour
     private void OnEnable()
     {
         TelevisionManager.onGameChange += SaveCloudManager;
+        ClearSkyUI.onResetRound += NewRound;
     }
 
     private void OnDisable()
     {
         TelevisionManager.onGameChange -= SaveCloudManager;
+        ClearSkyUI.onResetRound -= NewRound;
     }
 
     private void SaveCloudManager()
@@ -62,6 +66,7 @@ public class CloudManager : MonoBehaviour
 
     private void NewRound()
     {
+        onResetData?.Invoke();
         int cloudAmount = 0;
         switch (DataManager.GetDifficulty())
         {

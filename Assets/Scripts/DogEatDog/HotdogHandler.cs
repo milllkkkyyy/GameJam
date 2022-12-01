@@ -33,13 +33,26 @@ public class HotdogHandler : MonoBehaviour
 
     void Start()
     {
+        if (DataManager.dog.VisitedPlayerHandlerData())
+        {
+            DogMinigame.PlayerHotDogHandlerData data = DataManager.dog.GetPlayerHotDogHandler();
+            time.currentTime = data.GetCurrentTime();
+            amountEaten = data.GetAmountEaten();
+        }
 
         winText.text = " ";
         winText.color = Color.gray;
         CreateHotdog();
-        
+    }
 
+    private void OnEnable()
+    {
+        TelevisionManager.onGameChange += SaveHandlerInformation;
+    }
 
+    private void OnDisable()
+    {
+        TelevisionManager.onGameChange -= SaveHandlerInformation;
     }
 
     void Update()
@@ -67,7 +80,7 @@ public class HotdogHandler : MonoBehaviour
         if(time.isActive() == false)
         {
             displayedButton.text = " ";
-            endGame();
+            EndGame();
         }
         
     }
@@ -96,7 +109,7 @@ public class HotdogHandler : MonoBehaviour
         return amountEaten;
     }
 
-    private void endGame()
+    private void EndGame()
     {
         if(amountEaten > opponent.getScore())
         {
@@ -116,5 +129,13 @@ public class HotdogHandler : MonoBehaviour
             winText.color = Color.gray;
             winText.text = "TIE GAME";
         }
+    }
+
+    void SaveHandlerInformation()
+    {
+        DogMinigame.PlayerHotDogHandlerData data = new DogMinigame.PlayerHotDogHandlerData();
+        data.SetAmountEaten(amountEaten);
+        data.SetCurrentTimer(time.currentTime);
+        DataManager.dog.SetPlayerHotDogHandler(data);
     }
 }

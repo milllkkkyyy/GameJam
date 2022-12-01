@@ -14,7 +14,7 @@ public class TelevisionManager : MonoBehaviour
 
     // Transition related variables
 
-    string[] minigames = new string[] { "KK", "Sky"};
+    string[] minigames = new string[] { "Sky", "KK", "ETHAN" };
 
     string last_scene = "";
 

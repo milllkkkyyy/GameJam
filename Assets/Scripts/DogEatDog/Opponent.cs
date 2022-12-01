@@ -32,6 +32,12 @@ public class Opponent : MonoBehaviour
 
     private void Start()
     {
+        if (DataManager.dog.VisistedOpponent())
+        {
+            DogMinigame.Opponent opponent = DataManager.dog.GetOpponent();
+            amountEaten = opponent.GetAmountEaten();
+        }
+
         //coroutine loop which ends if the timer is 0 or hasnt begun.
 
         //CreateHotdog();
@@ -57,7 +63,17 @@ public class Opponent : MonoBehaviour
         }
         CreateHotdog();
     }
-  
+
+    private void OnEnable()
+    {
+        TelevisionManager.onGameChange += SaveOpponentInformation;
+    }
+
+    private void OnDisable()
+    {
+        TelevisionManager.onGameChange -= SaveOpponentInformation;
+    }
+
 
     private void Update()
     {
@@ -144,6 +160,13 @@ public class Opponent : MonoBehaviour
     public int getScore()
     {
         return amountEaten;
+    }
+
+    void SaveOpponentInformation()
+    {
+        DogMinigame.Opponent data = new DogMinigame.Opponent();
+        data.SetAmountEaten(amountEaten);
+        DataManager.dog.SetOpponent(data);
     }
 
 }

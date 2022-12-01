@@ -17,12 +17,14 @@ public class Cloud : MonoBehaviour
     {
         CloudManager.onCloudCreation += InitializeCloud;
         TelevisionManager.onGameChange += SaveCloud;
+        CloudManager.onResetData += DeleteCloud;
     }
 
     void OnDisable()
     {
         CloudManager.onCloudCreation -= InitializeCloud;
         TelevisionManager.onGameChange -= SaveCloud;
+        CloudManager.onResetData -= DeleteCloud;
     }
 
     void Update()
