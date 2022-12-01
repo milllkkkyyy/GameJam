@@ -42,6 +42,7 @@ public class Hotdog : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = fullDog;
+        
 
         playerBurp = GameObject.Find("BurpText").GetComponent<TextMeshProUGUI>();
 
@@ -115,7 +116,7 @@ public class Hotdog : MonoBehaviour
         {
             firstBite = true;
             //transform.position = new Vector2(-5f, 1);
-            speed = 3f;
+            speed = 5f;
             Debug.Log("FirstBite");
             //transform.position = endPos.position;
         }

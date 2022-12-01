@@ -35,11 +35,11 @@ public class Opponent : MonoBehaviour
         switch (DataManager.GetDifficulty())
         {
             case 1:
-                biteSpeed = .6f;
+                biteSpeed = .3f;
                 burpChance = 10;
                 break;
             case 2:
-                biteSpeed = 0.3f;
+                biteSpeed = 0.2f;
                 burpChance = 30;
                 break;
             case 3:
@@ -133,5 +133,10 @@ public class Opponent : MonoBehaviour
     }
 
     //win datamanager.win() 
+
+    public int getScore()
+    {
+        return amountEaten;
+    }
 
 }
