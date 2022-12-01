@@ -27,6 +27,8 @@ public class Opponent : MonoBehaviour
     [SerializeField] AudioSource munch;
     [SerializeField] AudioSource eaten;
     [SerializeField] AudioSource burp;
+    //Dog
+    [SerializeField] DogAnimations opponentDog;
 
 
 
@@ -90,6 +92,10 @@ public class Opponent : MonoBehaviour
         DestroyHotdogFinal();
         }
         //else( setbitespeed()
+        if (isBurping)
+        {
+            opponentDog.ChangeToBurp();
+        }
 
     }
 
@@ -120,6 +126,7 @@ public class Opponent : MonoBehaviour
             //will this work???
            hotdog.Bite();
             munch.Play();
+            opponentDog.Bite();
             CheckIfEaten(); 
         }
         else
@@ -132,6 +139,7 @@ public class Opponent : MonoBehaviour
     private void Burp()
     {
         burp.Play();
+        opponentDog.Burp();
         StartCoroutine(BurpWait());
     }
 

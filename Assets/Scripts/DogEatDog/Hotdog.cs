@@ -34,6 +34,9 @@ public class Hotdog : MonoBehaviour
     //[SerializeField] AudioSource eaten;
     [SerializeField] AudioSource burp;
 
+    //Dogs
+    [SerializeField] DogAnimations playerDog;
+
 
     private void Awake()
     {
@@ -45,6 +48,7 @@ public class Hotdog : MonoBehaviour
 
     void Start()
     {
+        playerDog = GameObject.Find("PlayerDog").GetComponent<DogAnimations>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = fullDog;
         
@@ -113,11 +117,16 @@ public class Hotdog : MonoBehaviour
         {
             transform.Translate(Vector2.up * speed * Time.deltaTime);
         }
+        if (isBurping)
+        {
+            playerDog.ChangeToBurp();
+        }
     }
     void Bite()
     {
         currentBites += 1;
         munch.Play();
+        playerDog.Bite();
         if (firstBite == false)
         {
             firstBite = true;
@@ -178,6 +187,7 @@ public class Hotdog : MonoBehaviour
     IEnumerator BurpWait()
     {
         playerBurp.text = "BURP!";
+        playerDog.Burp();
         isBurping = true;
         yield return new WaitForSeconds(1);
         isBurping = false;
