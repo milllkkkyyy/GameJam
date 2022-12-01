@@ -14,7 +14,7 @@ public static class DataManager
 
     private static int difficulty = 1;
 
-    private static List<string> minigames = new List<string> { "Sky", "KK" };
+    private static List<string> minigames = new List<string> { "Sky", "KK", "ETHAN" };
 
     private static bool increasingDifficulty = false;
 
@@ -57,7 +57,7 @@ public static class DataManager
         sky = new SkyMinigame();
         high = new HighnoonMinigame();
         dog = new DogMinigame();
-        minigames = new List<string> { "Sky", "KK" };
+        minigames = new List<string> { "Sky", "KK", "ETHAN" };
     }
 
     public static int GetDifficulty()

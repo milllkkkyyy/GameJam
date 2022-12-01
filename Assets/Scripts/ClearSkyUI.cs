@@ -12,6 +12,8 @@ public class ClearSkyUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI timeLabel;
     [SerializeField] TextMeshProUGUI amountLeftLabel;
 
+    public static event System.Action onResetRound;
+
     float amountOfClouds = 0;
     float currentScore = 0;
 
@@ -29,6 +31,7 @@ public class ClearSkyUI : MonoBehaviour
         Cloud.onCloudDeath += IncreaseScore;
         CloudManager.onNewRound += InitializeUI;
         TelevisionManager.onGameChange += SaveUIInformation;
+        CloudManager.onResetData += ResetUI;
     }
 
     private void OnDisable()
@@ -36,6 +39,14 @@ public class ClearSkyUI : MonoBehaviour
         Cloud.onCloudDeath -= IncreaseScore;
         CloudManager.onNewRound -= InitializeUI;
         TelevisionManager.onGameChange -= SaveUIInformation;
+        CloudManager.onResetData -= ResetUI;
+    }
+
+    void ResetUI()
+    {
+        finishedView.SetActive(false);
+        leftView.SetActive(true);
+        timerView.SetActive(true);
     }
 
     private void SaveUIInformation()
@@ -92,12 +103,13 @@ public class ClearSkyUI : MonoBehaviour
                 if (won)
                 {
                     DataManager.IncreaseDifficulty();
+                    startingTransition = true;
                 }
                 else
                 {
+                    onResetRound?.Invoke();
                     DataManager.FailedGame(SceneManager.GetActiveScene().name);
                 }
-                startingTransition = true;
             }
             displayViewTime += Time.deltaTime;
         }
@@ -147,9 +159,7 @@ public class ClearSkyUI : MonoBehaviour
             return;
 
         amountLeftLabel.text = "Clouds Left: " + (amountOfClouds - currentScore);
-        float minutes = Mathf.FloorToInt(timeLeftInSeconds / 60);
-        float seconds = Mathf.FloorToInt(timeLeftInSeconds % 60);
-        timeLabel.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        timeLabel.text = ((int)timeLeftInSeconds).ToString();
     }
 
 }

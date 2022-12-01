@@ -49,7 +49,7 @@ public class HNScoreScript : MonoBehaviour
             switch (DataManager.GetDifficulty())
             {
                 case 1:
-                    finalScore = 1;
+                    finalScore = 6;
                     break;
                 case 2:
                     finalScore = 12;
