@@ -79,7 +79,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 10.8, y: 7.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -98,3 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1.5
+  fullDog: {fileID: 21300000, guid: 3e93de2c6f749b64fbef7137afdb9622, type: 3}
+  threeQuarterDog: {fileID: 21300000, guid: 2dcfbebd322b50b4694ff5cb08908d33, type: 3}
+  halfDog: {fileID: 21300000, guid: 17a30878198e3c548bda395c670d9fae, type: 3}
+  quarterDog: {fileID: 21300000, guid: e4ac0d5a1881fdd4183c29da3820ad79, type: 3}
