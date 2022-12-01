@@ -13,7 +13,6 @@ public class DogAnimations : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = dogNormal;
-
     }
 
     public void Bite()
