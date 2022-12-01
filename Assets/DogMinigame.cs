@@ -8,6 +8,15 @@ public class DogMinigame
     {
         int amountEaten;
         float currentTime;
+        float musicTime;
+        public float GetMusicTime()
+        {
+            return musicTime;
+        }
+        public void SetMusicTime(float time)
+        {
+            musicTime = time;
+        }
 
         public void SetAmountEaten(int amountEaten)
         {

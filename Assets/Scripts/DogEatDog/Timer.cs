@@ -43,15 +43,15 @@ public class Timer : MonoBehaviour
     {
         if (DataManager.GetDifficulty() == 1)
         {
-            startingTime = 30;
+            startingTime = 45;
         }
         else if (DataManager.GetDifficulty() == 2)
         {
-            startingTime = 15;
+            startingTime = 25;
         }
-        else if (DataManager.GetDifficulty() == 2)
+        else if (DataManager.GetDifficulty() == 3)
         {
-            startingTime = 10;
+            startingTime = 20;
         }
 
         currentTime = startingTime;

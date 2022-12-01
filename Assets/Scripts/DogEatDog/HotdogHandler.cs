@@ -12,6 +12,7 @@ using UnityEngine.Windows;
 
 public class HotdogHandler : MonoBehaviour
 {
+    private bool finishGame = false;
     [SerializeField] GameObject hotdogGO;
     [SerializeField] Transform spawnLocation;
     Hotdog hotdog;
@@ -28,7 +29,8 @@ public class HotdogHandler : MonoBehaviour
     //Sounds
     [SerializeField] AudioSource eaten;
     [SerializeField] AudioSource bopbop;
-    
+    [SerializeField] AudioSource music;
+
 
 
 
@@ -42,6 +44,7 @@ public class HotdogHandler : MonoBehaviour
             DogMinigame.PlayerHotDogHandlerData data = DataManager.dog.GetPlayerHotDogHandler();
             time.currentTime = data.GetCurrentTime();
             amountEaten = data.GetAmountEaten();
+            music.time = data.GetMusicTime();
         }
 
         winText.text = " ";
@@ -82,7 +85,7 @@ public class HotdogHandler : MonoBehaviour
             deletedHotDog = true;
             displayedButton.text = " ";
         }
-        if(time.isActive() == false)
+        if(time.isActive() == false && !finishGame)
         {
             displayedButton.text = " ";
             EndGame();
@@ -119,6 +122,7 @@ public class HotdogHandler : MonoBehaviour
     {
         if(amountEaten > opponent.getScore())
         {
+            finishGame = true;
             winText.color = Color.green;
             //player wins
             winText.text = "YOU WIN!";
@@ -129,6 +133,7 @@ public class HotdogHandler : MonoBehaviour
             winText.color = Color.red;
             winText.text = "YOU LOSE";
             DataManager.FailedGame(SceneManager.GetActiveScene().name);
+            ResetGame();
 
         }
         else
@@ -137,7 +142,9 @@ public class HotdogHandler : MonoBehaviour
             winText.color = Color.red;
             winText.text = "TIE GAME";
             DataManager.FailedGame(SceneManager.GetActiveScene().name);
+            ResetGame();
         }
+        
     }
 
     void SaveHandlerInformation()
@@ -145,11 +152,14 @@ public class HotdogHandler : MonoBehaviour
         DogMinigame.PlayerHotDogHandlerData data = new DogMinigame.PlayerHotDogHandlerData();
         data.SetAmountEaten(amountEaten);
         data.SetCurrentTimer(time.currentTime);
+        data.SetMusicTime(music.time);
         DataManager.dog.SetPlayerHotDogHandler(data);
     }
 
     public void ResetGame()
     {
+        DataManager.dog = new DogMinigame();
+        finishGame = false;
         amountEaten = 0;
         time.RestartTime();
         deletedHotDog = false;
