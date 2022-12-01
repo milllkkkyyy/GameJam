@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -96,6 +94,9 @@ public class Hotdog : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+
         if (isBurping == false)
         {
             if (Keyboard.current.anyKey.wasPressedThisFrame) { 

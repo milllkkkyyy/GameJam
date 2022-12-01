@@ -38,6 +38,7 @@ public class Opponent : MonoBehaviour
         {
             DogMinigame.Opponent opponent = DataManager.dog.GetOpponent();
             amountEaten = opponent.GetAmountEaten();
+            oponnentScoreTracker.SetScore(amountEaten);
         }
         SetDifficulty();
 

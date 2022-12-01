@@ -26,7 +26,7 @@ public class EndCredits : MonoBehaviour
         }
         else 
         {
-            transform.Translate(Vector2.up * 1.2f * Time.deltaTime);
+            transform.Translate(Vector2.up * 1.2f * Time.unscaledDeltaTime);
             Debug.Log(rectTransform.position.y);
         }
 
