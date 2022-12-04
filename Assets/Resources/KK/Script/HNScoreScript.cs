@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 
 public class HNScoreScript : MonoBehaviour
 {
-
+    [SerializeField] AudioSource music;
     [SerializeField] TextMeshProUGUI playerScore;
 
     public static event System.Action onHighNoon;
@@ -43,6 +43,7 @@ public class HNScoreScript : MonoBehaviour
             HighnoonMinigame.Data data = DataManager.high.GetData();
             scoreValue = data.GetCurrentScore();
             finalScore = data.GetFinalScore();
+            music.time = data.GetMusicTime();
         }
         else
         {
@@ -69,6 +70,7 @@ public class HNScoreScript : MonoBehaviour
         // we handle this here so it is only called once.
         if (scoreValue == finalScore) // If score value is 12, game is completed
         {
+            DataManager.transitioning = true;
             DataManager.inputEnabled = false;
             playerScore.text = "You Won!"; // change text
             onHighNoon?.Invoke(); // stop the rotation of the pointer
@@ -77,6 +79,7 @@ public class HNScoreScript : MonoBehaviour
     void ResetScore()
     {
         scoreValue = 0;
+        DataManager.inputEnabled = true;
     }
 
     void Update()
@@ -103,6 +106,7 @@ public class HNScoreScript : MonoBehaviour
         HighnoonMinigame.Data data = new HighnoonMinigame.Data();
         data.SetCurrentScore(scoreValue);
         data.SetFinalScore(finalScore);
+        data.SetMusicTime(music.time);
         DataManager.high.SetData(data);
     }
 }

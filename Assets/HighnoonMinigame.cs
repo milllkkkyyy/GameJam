@@ -49,6 +49,7 @@ public class HighnoonMinigame
     {
         int currentScore;
         int finalScore;
+        float musicTime;
 
         public void SetCurrentScore(int score)
         {
@@ -68,6 +69,16 @@ public class HighnoonMinigame
         public int GetFinalScore()
         {
             return finalScore;
+        }
+
+        public void SetMusicTime(float time)
+        {
+            this.musicTime = time;
+        }
+
+        public float GetMusicTime()
+        {
+            return this.musicTime;
         }
 
     }

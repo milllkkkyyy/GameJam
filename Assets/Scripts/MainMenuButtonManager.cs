@@ -21,8 +21,10 @@ public class MainMenuButtonManager : MonoBehaviour
         {
             manager = TelevisionManager.instance;
         }
+        DataManager.gameCompleted = false;
+        DataManager.inputEnabled = false;
     }
-    
+
     public void OnExitGamePress()
     {
         if (disabled)

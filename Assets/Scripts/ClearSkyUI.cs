@@ -140,6 +140,8 @@ public class ClearSkyUI : MonoBehaviour
 
     void UpdateDispalyViewText(bool won)
     {
+        DataManager.inputEnabled = false;
+        DataManager.transitioning = true;
         string text = won ? "CLEARED SKY!" : "TIMES UP!";
         finishedView.GetComponent<TextMeshProUGUI>().text = text;
         finishedView.SetActive(true);

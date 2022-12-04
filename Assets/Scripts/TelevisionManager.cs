@@ -45,7 +45,7 @@ public class TelevisionManager : MonoBehaviour
 
     private void Start()
     {
-        delayGameChangeTimerCap = Random.Range(5, 10);
+        delayGameChangeTimerCap = Random.Range(8, 15);
     }
 
 
@@ -84,6 +84,7 @@ public class TelevisionManager : MonoBehaviour
 
     private void HandleDifficultySwitch()
     {
+        DataManager.transitioning = false;
         ChangeScene(GetCurrentScene(), "Difficulty_Start");
     }
 
@@ -92,10 +93,13 @@ public class TelevisionManager : MonoBehaviour
     /// </summary>
     private void HandleSwitchGame()
     {
+        if (DataManager.transitioning)
+            return;
+
         if (delayGameChangeTimer > delayGameChangeTimerCap)
         {
             delayGameChangeTimer = 0.0f;
-            delayGameChangeTimerCap = Random.Range(5, 10);
+            delayGameChangeTimerCap = Random.Range(8, 15);
             onGameChange?.Invoke();
             ChangeToRandomMinigame();
         }

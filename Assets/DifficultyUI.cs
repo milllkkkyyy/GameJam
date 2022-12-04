@@ -12,6 +12,10 @@ public class DifficultyUI : MonoBehaviour
     [SerializeField] Sprite won;
     [SerializeField] Sprite lost;
 
+    [SerializeField] AudioSource increasingVoice;
+    [SerializeField] AudioSource decreasingVoice;
+
+
 
     void SetGameStatusUI()
     {
@@ -42,6 +46,19 @@ public class DifficultyUI : MonoBehaviour
                 label.text = "DIFFICULTY: HARD";
                 break;
         }
-        
+
+    }
+
+    void PlayVoice()
+    {
+        if (DataManager.IncreasingDifficulty())
+        {
+            increasingVoice.Play();
+        }
+        else
+        {
+            decreasingVoice.Play();
+        }
+
     }
 }

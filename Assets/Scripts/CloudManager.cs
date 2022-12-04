@@ -5,6 +5,7 @@ using UnityEngine;
 public class CloudManager : MonoBehaviour
 {
     [SerializeField] GameObject cloud;
+    [SerializeField] AudioSource music;
 
     public static event System.Action<Vector2> onCloudCreation;
     public static event System.Action<float, float, float> onNewRound; /// imagine this as creating an "void onNewRound(float a, float b)"
@@ -29,6 +30,7 @@ public class CloudManager : MonoBehaviour
             // load boundary and cloud manager data
             SkyMinigame.CloudManagerData manager = DataManager.sky.GetCloudManagerData();
             boundary = manager.GetBoundary();
+            music.time = manager.GetMusicTime();
             onCloudCreation?.Invoke(new Vector2(boundary, boundary));
 
             // load ui data
@@ -60,6 +62,7 @@ public class CloudManager : MonoBehaviour
     private void SaveCloudManager()
     {
         SkyMinigame.CloudManagerData manager = new SkyMinigame.CloudManagerData();
+        manager.SetMusicTime(music.time);
         manager.SetBoundary(boundary);
         DataManager.sky.SetCloudManagerData(manager);
     }
@@ -68,23 +71,28 @@ public class CloudManager : MonoBehaviour
     {
         onResetData?.Invoke();
         int cloudAmount = 0;
+        float time = 0;
         switch (DataManager.GetDifficulty())
         {
             case 1:
                 cloudAmount = 3;
                 boundary = 20f;
+                time = 30f;
                 break;
             case 2:
                 cloudAmount = 6;
                 boundary = 25f;
+                time = 45f;
                 break;
             case 3:
                 cloudAmount = 10;
                 boundary = 40f;
+                time = 60f;
                 break;
         }
         CreateRound(cloudAmount);
-        onNewRound?.Invoke(cloudAmount * cloudAmount, 30f, 0);
+        onNewRound?.Invoke(cloudAmount * cloudAmount, time, 0);
+        DataManager.inputEnabled = true;
     }
 
     /// <summary>

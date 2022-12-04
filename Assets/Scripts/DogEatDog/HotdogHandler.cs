@@ -37,8 +37,6 @@ public class HotdogHandler : MonoBehaviour
 
     void Start()
     {
-
-        
         if (DataManager.dog.VisitedPlayerHandlerData())
         {
             DogMinigame.PlayerHotDogHandlerData data = DataManager.dog.GetPlayerHotDogHandler();
@@ -120,7 +118,9 @@ public class HotdogHandler : MonoBehaviour
 
     private void EndGame()
     {
-        if(amountEaten > opponent.getScore())
+        DataManager.inputEnabled = false;
+        DataManager.transitioning = true;
+        if (amountEaten > opponent.getScore())
         {
             finishGame = true;
             winText.color = Color.green;
@@ -166,6 +166,6 @@ public class HotdogHandler : MonoBehaviour
         winText.text = " ";
         opponent.ResetOponnent();
         CreateHotdog();
-
+        DataManager.inputEnabled = true;
     }
 }

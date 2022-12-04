@@ -24,6 +24,10 @@ public static class DataManager
 
     public static bool inputEnabled = true;
 
+    public static bool gameCompleted = false;
+
+    public static bool transitioning = false;
+
     public static void IncreaseDifficulty()
     {
         /// increase the difficulty
@@ -32,6 +36,7 @@ public static class DataManager
         if (difficulty > 3)
         {
             onFinishedGame?.Invoke();
+            gameCompleted = true;
             return;
         }
 
@@ -59,6 +64,10 @@ public static class DataManager
             /// invoke the transition
             onDifficultySwitch?.Invoke();
         }
+        else
+        {
+            DataManager.transitioning = false;
+        }
     }
 
     private static void EraseData()
@@ -68,6 +77,23 @@ public static class DataManager
         high = new HighnoonMinigame();
         dog = new DogMinigame();
         minigames = new List<string> { "Sky", "KK", "ETHAN" };
+    }
+
+    public static void ResetData()
+    {
+        difficulty = 1;
+
+        increasingDifficulty = false;
+
+        inputEnabled = true;
+
+        gameCompleted = false;
+
+        minigames = new List<string> { "Sky", "KK", "ETHAN" };
+
+        vistedMinigames = new Dictionary<string, int> { { "Sky", -1 }, { "KK", -1 }, { "ETHAN", -1 } };
+
+        EraseData();
     }
 
     public static int GetDifficulty()
